@@ -33,7 +33,7 @@ func (p *Preference) Generate(cnf Config, markdown *md.Markdown) {
 		markdown.Table(
 			md.TableSet{
 				Header: []string{"For", "Type"},
-				Rows: rows,
+				Rows:   rows,
 			},
 		)
 	}

@@ -7,7 +7,7 @@ import (
 // @TODO -refactor similart XML types observer,preference etc
 
 type Observer struct {
-	Event                     []struct {
+	Event []struct {
 		Text     string `xml:",chardata"`
 		Name     string `xml:"name,attr"`
 		Observer []struct {
@@ -42,7 +42,7 @@ func (o *Observer) Generate(cnf Config, markdown *md.Markdown) {
 		markdown.Table(
 			md.TableSet{
 				Header: []string{"Event", "Observer name", "Instance"},
-				Rows: rows,
+				Rows:   rows,
 			},
 		)
 	}

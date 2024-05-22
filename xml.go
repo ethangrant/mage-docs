@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"io"
 	"encoding/xml"
+	"fmt"
+	"io"
+	"os"
 )
 
 type XmlPath struct {
@@ -29,7 +29,7 @@ func NewXml(file string) Xml {
 
 // pass a markdowngenerator to hydrate once a new instance of Xml has been created specifying files
 // function will unmarshal the xml files and hydrate the passed type.
-func (x *Xml) UnmarshalToMap(m MarkdownGenerator, cnf Config) (map[string]interface{}) {
+func (x *Xml) UnmarshalToMap(m MarkdownGenerator, cnf Config) map[string]interface{} {
 	areaMap := make(map[string]interface{})
 
 	for _, xmlPath := range x.Paths {

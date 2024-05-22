@@ -8,12 +8,12 @@ import (
 )
 
 type Readme struct {
-	Markdown *md.Markdown
+	Markdown    *md.Markdown
 	GeneratedAt time.Time
 }
 
 type Section struct {
-	Header string
+	Header  string
 	Content string
 }
 
@@ -21,10 +21,10 @@ func (s *Section) OutputHeader() string {
 	return "##" + s.Header
 }
 
-func (s * Section) Render() (o string) {
+func (s *Section) Render() (o string) {
 	o += fmt.Sprintf("##%s", s.Header)
 
-	return o;
+	return o
 }
 
 // func (r * Readme) Write(md) (o string) {

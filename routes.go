@@ -10,7 +10,7 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
-type Controllers struct{
+type Controllers struct {
 }
 
 type Routes struct {
@@ -31,7 +31,7 @@ type Routes struct {
 			} `xml:"module"`
 		} `xml:"route"`
 	} `xml:"router"`
-} 
+}
 
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 	markdown.H2("Routes")
@@ -52,7 +52,7 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 		controllerDir := cnf.ModulePath + "Controller/"
 
 		// @todo - ignore abstract classes
-		filepath.WalkDir(controllerDir, func(path string, d os.DirEntry, err error) error  {
+		filepath.WalkDir(controllerDir, func(path string, d os.DirEntry, err error) error {
 
 			if d.IsDir() {
 				return nil
@@ -69,8 +69,6 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 			if area == "adminhtml" {
 				relativePath = strings.TrimPrefix(relativePath, "Adminhtml/")
 			}
-
-			fmt.Println(relativePath)
 
 			uriElements := strings.Split(relativePath, "/")
 
