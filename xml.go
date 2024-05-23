@@ -16,8 +16,19 @@ type Xml struct {
 	Paths []XmlPath
 }
 
-func NewXml(file string) Xml {
+func NewXml(file string, area ...bool) Xml {
 	var x Xml
+	var useArea bool = true
+
+	if len(area) > 0 {
+		useArea = area[0]
+	}
+
+	if !useArea {
+		x.Paths = []XmlPath{{"global", fmt.Sprintf("etc/%s.xml", file)}}
+		return x
+	}
+
 	x.Paths = []XmlPath{
 		{"global", fmt.Sprintf("etc/%s.xml", file)},
 		{"frontend", fmt.Sprintf("etc/frontend/%s.xml", file)},

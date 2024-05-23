@@ -70,7 +70,6 @@ func (s *Schema) Generate(cnf Config, markdown *md.Markdown) {
 			continue
 		}
 
-		markdown.H3(area)
 		markdown.CustomTable(
 			md.TableSet{
 				Header: []string{"Table Name", "Comment"},

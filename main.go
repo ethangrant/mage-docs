@@ -39,15 +39,16 @@ func main() {
 	}
 	defer file.Close()
 
-	markdown := md.NewMarkdown(file).H1(markdownTitle)
+	markdown := md.NewMarkdown(file).H1f("%s", md.BoldItalic(markdownTitle))
 
 	generators = append(generators,
-		new(Preference),
-		new(Observer),
+		new(Module),
 		new(Routes),
 		new(Webapi),
-		new(Schema),
 		new(Layout),
+		new(Schema),
+		new(Observer),
+		new(Preference),
 	)
 
 	for _, generator := range generators {
