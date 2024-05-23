@@ -12,6 +12,7 @@ type Preference struct {
 	} `xml:"preference"`
 }
 
+// @todo - check if works with webapi_*
 func (p *Preference) Generate(cnf Config, markdown *md.Markdown) {
 	markdown.H2("Preferences")
 	xml := NewXml("di")

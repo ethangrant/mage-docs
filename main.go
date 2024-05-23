@@ -41,9 +41,13 @@ func main() {
 
 	markdown := md.NewMarkdown(file).H1(markdownTitle)
 
-	generators = append(generators, new(Preference))
-	generators = append(generators, new(Observer))
-	generators = append(generators, new(Routes))
+	generators = append(generators,
+		new(Preference),
+		new(Observer),
+		new(Routes),
+		new(Webapi),
+		new(Schema),
+	)
 
 	for _, generator := range generators {
 		generator.Generate(cnf, markdown)

@@ -22,6 +22,8 @@ func NewXml(file string) Xml {
 		{"global", fmt.Sprintf("etc/%s.xml", file)},
 		{"frontend", fmt.Sprintf("etc/frontend/%s.xml", file)},
 		{"adminhtml", fmt.Sprintf("etc/adminhtml/%s.xml", file)},
+		{"webapi_rest", fmt.Sprintf("etc/webapi_rest/%s.xml", file)},
+		{"webapi_soap", fmt.Sprintf("etc/webapi_soap/%s.xml", file)},
 	}
 
 	return x

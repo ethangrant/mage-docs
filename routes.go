@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/xml"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,10 +13,6 @@ type Controllers struct {
 }
 
 type Routes struct {
-	XMLName                   xml.Name `xml:"config"`
-	Text                      string   `xml:",chardata"`
-	Xsi                       string   `xml:"xsi,attr"`
-	NoNamespaceSchemaLocation string   `xml:"noNamespaceSchemaLocation,attr"`
 	Router                    struct {
 		Text  string `xml:",chardata"`
 		ID    string `xml:"id,attr"`
@@ -33,6 +28,11 @@ type Routes struct {
 	} `xml:"router"`
 }
 
+// @todo - ignore abstract classes
+// @todo - feasible to get param information?
+// @todo - check if we can see what kind of result is returned?
+// @todo - handle other router types
+// @todo - rework to output a table
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 	markdown.H2("Routes")
 	xml := NewXml("routes")
@@ -51,7 +51,6 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 
 		controllerDir := cnf.ModulePath + "Controller/"
 
-		// @todo - ignore abstract classes
 		filepath.WalkDir(controllerDir, func(path string, d os.DirEntry, err error) error {
 
 			if d.IsDir() {
