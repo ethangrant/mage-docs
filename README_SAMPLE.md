@@ -207,7 +207,6 @@ This module interacts with the following layout handles in frontend
 `checkout_cart_item_renderers`
 `default`
 ## Schema
-### global
 |                      Table Name                      |                              Comment                              |
 |------------------------------------------------------|-------------------------------------------------------------------|
 | catalog_product_entity                               | Catalog Product Table                                             |

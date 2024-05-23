@@ -57,7 +57,7 @@ func (s *Schema) Generate(cnf Config, markdown *md.Markdown) {
 	xml := NewXml("db_schema")
 	areamap := xml.UnmarshalToMap(s, cnf)
 
-	for area, schema := range areamap {
+	for _, schema := range areamap {
 		tables := schema.(*Schema).Table
 
 		var rows [][]string
