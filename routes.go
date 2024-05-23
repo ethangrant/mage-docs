@@ -91,6 +91,9 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 		})
 
 		markdown.H3(area)
-		markdown.BulletList(uris...)
+
+		for _, uri := range uris {
+			markdown.PlainTextf("%s", md.Code(uri))
+		}
 	}
 }
