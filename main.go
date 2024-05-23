@@ -47,6 +47,7 @@ func main() {
 		new(Routes),
 		new(Webapi),
 		new(Schema),
+		new(Layout),
 	)
 
 	for _, generator := range generators {
