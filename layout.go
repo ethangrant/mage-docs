@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/fs"
 	"path/filepath"
 	"strings"
@@ -18,8 +17,6 @@ func (l *Layout) Generate(cnf Config, markdown *md.Markdown) {
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"
 	filepath.WalkDir(layoutPath, func(path string, d fs.DirEntry, err error) error {
-		fmt.Println(path)
-
 		if d.IsDir() {
 			return nil
 		}

@@ -46,6 +46,7 @@ func main() {
 		new(Routes),
 		new(Webapi),
 		new(Layout),
+		new(Mixins),
 		new(Schema),
 		new(Observer),
 		new(Preference),
