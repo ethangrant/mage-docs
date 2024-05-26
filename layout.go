@@ -12,7 +12,7 @@ type Layout struct{
 }
 
 func (l *Layout) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H3("Layouts")
+	markdown.H2("Layouts")
 	markdown.PlainText("This module interacts with the following layout handles in frontend")
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"

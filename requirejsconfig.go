@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -17,8 +18,11 @@ type RequireJsConfig struct {
 type Mixin struct {
 	Target string
 	Mixin string
+	Status bool
 }
 
+// requirejs-config.js files are javascript files with a single object defined
+// By stripping down and modifying the file we can turn this into valid JSON.
 func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath string) ([]byte)  {
 	var data []byte
 
@@ -28,10 +32,9 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 		return []byte{}
 	}
 
-	re := regexp.MustCompile(`([a-zA-Z]+:)`)
+	re := regexp.MustCompile(`([a-zA-Z]+):`)
 	reDocBlock := regexp.MustCompile(`\/\*\*(.|[\r\n])*?\*\/`)
 
-	// these are JS files we are stripping them down to JSON
 	dataAsString := string(data)
 	dataAsString = strings.ReplaceAll(dataAsString, "'", "\"")
 	dataAsString = strings.ReplaceAll(dataAsString, ";", "")
@@ -40,21 +43,51 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 	dataAsString = reDocBlock.ReplaceAllString(dataAsString, "")
 	dataAsString = strings.TrimSpace(dataAsString)
 
-
-	fmt.Println(dataAsString)
-
-	return data
+	return []byte(dataAsString)
 }
 
-func (r *RequireJsConfig) UnmarshalJSON(data []byte) error {
-	var v []interface{}
+// Once we have requirejs-config.js as a byte slice of JSON we can unmarshal
+// and extract the mixin data we want.
+func (r *RequireJsConfig) ExtractMixins(data []byte) ([]Mixin, error) {
+	var mixinSlice []Mixin
+	var result interface{}
 
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+	if err := json.Unmarshal(data, &result); err != nil {
+		return nil, err
 	}
 
+	dataMap , ok := result.(map[string]interface{})
+	if !ok {
+		return nil, errors.New("problem with type assertion")
+	}
 
-	fmt.Println(v[0])
+	config, ok := dataMap["config"].(map[string]interface{})
+	if !ok {
+		return nil, errors.New("problem with type assertion could not find config")
+	}
 
-	return nil
+	mixins, ok := config["mixins"].(map[string]interface{})
+	if !ok {
+		return nil, errors.New("problem with type assertion could not find mixin")
+	}
+
+	for key, value := range mixins {
+		var m Mixin
+
+		mixinMap, ok := value.(map[string]interface{})
+		if !ok {
+			return nil, errors.New("problem with type assertion")
+		}
+
+		for key, value := range mixinMap {
+			m.Status = value.(bool)
+			m.Mixin = key
+		}
+
+		m.Target = key
+
+		mixinSlice = append(mixinSlice, m)
+	}
+
+	return mixinSlice, nil
 }

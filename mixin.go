@@ -1,11 +1,11 @@
 package main
 
 import (
+	"strconv"
 	md "github.com/nao1215/markdown"
 )
 
 type Mixins struct {
-
 }
 
 func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
@@ -22,8 +22,24 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 		data := requireJsConfig.getRequireJsConfigContent(area, cnf.ModulePath)
 		areaMap[area] = data
 
-		requireJsConfig.UnmarshalJSON(data)
+		mixins, err := requireJsConfig.ExtractMixins(data)
+		if err != nil {
+			// File likely does not have any mixins
+			continue
+		}
 
-		// requireJsConfig.Config
+		var rows [][]string
+		for _, mixin := range mixins {
+			row := []string{mixin.Target, mixin.Mixin, strconv.FormatBool(mixin.Status)}
+			rows = append(rows, row)
+		}
+
+		markdown.H3(area)
+		markdown.Table(
+			md.TableSet{
+				Header: []string{"Target", "Mixin", "Status"},
+				Rows:   rows,
+			},
+		)
 	}
 }
