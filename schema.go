@@ -5,7 +5,7 @@ import (
 )
 
 type Schema struct {
-	Table                     []struct {
+	Table []struct {
 		Text     string `xml:",chardata"`
 		Name     string `xml:"name,attr"`
 		Resource string `xml:"resource,attr"`
@@ -50,7 +50,7 @@ type Schema struct {
 			} `xml:"column"`
 		} `xml:"index"`
 	} `xml:"table"`
-} 
+}
 
 func (s *Schema) Generate(cnf Config, markdown *md.Markdown) {
 	markdown.H2("Schema")

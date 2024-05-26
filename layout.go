@@ -8,7 +8,7 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
-type Layout struct{
+type Layout struct {
 }
 
 func (l *Layout) Generate(cnf Config, markdown *md.Markdown) {

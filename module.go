@@ -5,7 +5,7 @@ import (
 )
 
 type Module struct {
-	Module                    struct {
+	Module struct {
 		Text     string `xml:",chardata"`
 		Name     string `xml:"name,attr"`
 		Sequence struct {

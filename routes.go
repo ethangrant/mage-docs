@@ -13,7 +13,7 @@ type Controllers struct {
 }
 
 type Routes struct {
-	Router                    struct {
+	Router struct {
 		Text  string `xml:",chardata"`
 		ID    string `xml:"id,attr"`
 		Route struct {

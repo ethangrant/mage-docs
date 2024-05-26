@@ -5,7 +5,7 @@ import (
 )
 
 type Webapi struct {
-	Route                     []struct {
+	Route []struct {
 		Text    string `xml:",chardata"`
 		URL     string `xml:"url,attr"`
 		Method  string `xml:"method,attr"`

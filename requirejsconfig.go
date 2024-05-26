@@ -17,13 +17,13 @@ type RequireJsConfig struct {
 
 type Mixin struct {
 	Target string
-	Mixin string
+	Mixin  string
 	Status bool
 }
 
 // requirejs-config.js files are javascript files with a single object defined
 // By stripping down and modifying the file we can turn this into valid JSON.
-func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath string) ([]byte)  {
+func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath string) []byte {
 	var data []byte
 
 	data, err := os.ReadFile(fmt.Sprintf("%sview/%s/requirejs-config.js", modulePath, area))
@@ -56,7 +56,7 @@ func (r *RequireJsConfig) ExtractMixins(data []byte) ([]Mixin, error) {
 		return nil, err
 	}
 
-	dataMap , ok := result.(map[string]interface{})
+	dataMap, ok := result.(map[string]interface{})
 	if !ok {
 		return nil, errors.New("problem with type assertion")
 	}
