@@ -287,36 +287,6 @@ This module interacts with the following layout handles in frontend
 | catalog_product_frontend_action                      | Catalog Product Frontend Action Table                             |
 
 ## Observers
-### adminhtml
-|                            EVENT                             |               OBSERVER NAME                |                               INSTANCE                                |
-|--------------------------------------------------------------|--------------------------------------------|-----------------------------------------------------------------------|
-| magento_catalog_api_data_productinterface_save_before        | legacy_model_save                          | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
-| magento_catalog_api_data_productinterface_save_after         | legacy_model_save                          | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
-| magento_catalog_api_data_productinterface_delete_before      | legacy_model_delete                        | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
-| magento_catalog_api_data_productinterface_delete_after       | legacy_model_delete                        | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
-| magento_catalog_api_data_productinterface_load_after         | legacy_model_load                          | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
-| magento_catalog_api_data_categoryinterface_save_before       | legacy_category_save_before                | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
-| magento_catalog_api_data_categoryinterface_save_after        | legacy_category_save_after                 | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
-| magento_catalog_api_data_categoryinterface_save_after        | invalidate_cache_on_category_design_change | Magento\Catalog\Observer\InvalidateCacheOnCategoryDesignChange        |
-| magento_catalog_api_data_categoryinterface_delete_before     | legacy_category_delete_before              | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
-| magento_catalog_api_data_categoryinterface_delete_after      | legacy_category_delete_after               | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
-| magento_catalog_api_data_categoryinterface_load_after        | legacy_category_load_after                 | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
-| magento_catalog_api_data_categorytreeinterface_save_before   | legacy_categorytree_save_before            | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
-| magento_catalog_api_data_categorytreeinterface_save_after    | legacy_categorytree_save_after             | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
-| magento_catalog_api_data_categorytreeinterface_delete_before | legacy_categorytree_delete_before          | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
-| magento_catalog_api_data_categorytreeinterface_delete_after  | legacy_categorytree_delete_after           | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
-| magento_catalog_api_data_categorytreeinterface_load_after    | legacy_categorytree_load_after             | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
-| admin_system_config_changed_section_catalog                  | catalog_update_price_attribute             | Magento\Catalog\Observer\SwitchPriceAttributeScopeOnConfigChange      |
-| catalog_product_save_before                                  | set_special_price_start_date               | Magento\Catalog\Observer\SetSpecialPriceStartDate                     |
-| store_save_after                                             | synchronize_website_attributes             | Magento\Catalog\Observer\SynchronizeWebsiteAttributesOnStoreChange    |
-| catalog_product_save_commit_after                            | magento_image_resize                       | Magento\Catalog\Observer\ImageResizeAfterProductSave                  |
-| catalog_category_prepare_save                                | additional_authorization                   | Magento\Catalog\Observer\CategoryDesignAuthorization                  |
-| customer_login                                               | catalog                                    | Magento\Catalog\Observer\Compare\BindCustomerLoginObserver            |
-| customer_logout                                              | catalog                                    | Magento\Catalog\Observer\Compare\BindCustomerLogoutObserver           |
-| cms_wysiwyg_images_static_urls_allowed                       | catalog_wysiwyg                            | Magento\Catalog\Observer\CatalogCheckIsUsingStaticUrlsAllowedObserver |
-| catalog_category_change_products                             | category_product_indexer                   | Magento\Catalog\Observer\CategoryProductIndexer                       |
-| category_move                                                | clean_cagegory_page_cache                  | Magento\Catalog\Observer\FlushCategoryPagesCache                      |
-
 ### global
 |                            EVENT                             |               OBSERVER NAME                |                               INSTANCE                                |
 |--------------------------------------------------------------|--------------------------------------------|-----------------------------------------------------------------------|
@@ -377,7 +347,496 @@ This module interacts with the following layout handles in frontend
 | catalog_category_change_products                             | category_product_indexer                   | Magento\Catalog\Observer\CategoryProductIndexer                       |
 | category_move                                                | clean_cagegory_page_cache                  | Magento\Catalog\Observer\FlushCategoryPagesCache                      |
 
+### adminhtml
+|                            EVENT                             |               OBSERVER NAME                |                               INSTANCE                                |
+|--------------------------------------------------------------|--------------------------------------------|-----------------------------------------------------------------------|
+| magento_catalog_api_data_productinterface_save_before        | legacy_model_save                          | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
+| magento_catalog_api_data_productinterface_save_after         | legacy_model_save                          | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
+| magento_catalog_api_data_productinterface_delete_before      | legacy_model_delete                        | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
+| magento_catalog_api_data_productinterface_delete_after       | legacy_model_delete                        | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
+| magento_catalog_api_data_productinterface_load_after         | legacy_model_load                          | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
+| magento_catalog_api_data_categoryinterface_save_before       | legacy_category_save_before                | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
+| magento_catalog_api_data_categoryinterface_save_after        | legacy_category_save_after                 | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
+| magento_catalog_api_data_categoryinterface_save_after        | invalidate_cache_on_category_design_change | Magento\Catalog\Observer\InvalidateCacheOnCategoryDesignChange        |
+| magento_catalog_api_data_categoryinterface_delete_before     | legacy_category_delete_before              | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
+| magento_catalog_api_data_categoryinterface_delete_after      | legacy_category_delete_after               | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
+| magento_catalog_api_data_categoryinterface_load_after        | legacy_category_load_after                 | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
+| magento_catalog_api_data_categorytreeinterface_save_before   | legacy_categorytree_save_before            | Magento\Framework\EntityManager\Observer\BeforeEntitySave             |
+| magento_catalog_api_data_categorytreeinterface_save_after    | legacy_categorytree_save_after             | Magento\Framework\EntityManager\Observer\AfterEntitySave              |
+| magento_catalog_api_data_categorytreeinterface_delete_before | legacy_categorytree_delete_before          | Magento\Framework\EntityManager\Observer\BeforeEntityDelete           |
+| magento_catalog_api_data_categorytreeinterface_delete_after  | legacy_categorytree_delete_after           | Magento\Framework\EntityManager\Observer\AfterEntityDelete            |
+| magento_catalog_api_data_categorytreeinterface_load_after    | legacy_categorytree_load_after             | Magento\Framework\EntityManager\Observer\AfterEntityLoad              |
+| admin_system_config_changed_section_catalog                  | catalog_update_price_attribute             | Magento\Catalog\Observer\SwitchPriceAttributeScopeOnConfigChange      |
+| catalog_product_save_before                                  | set_special_price_start_date               | Magento\Catalog\Observer\SetSpecialPriceStartDate                     |
+| store_save_after                                             | synchronize_website_attributes             | Magento\Catalog\Observer\SynchronizeWebsiteAttributesOnStoreChange    |
+| catalog_product_save_commit_after                            | magento_image_resize                       | Magento\Catalog\Observer\ImageResizeAfterProductSave                  |
+| catalog_category_prepare_save                                | additional_authorization                   | Magento\Catalog\Observer\CategoryDesignAuthorization                  |
+| customer_login                                               | catalog                                    | Magento\Catalog\Observer\Compare\BindCustomerLoginObserver            |
+| customer_logout                                              | catalog                                    | Magento\Catalog\Observer\Compare\BindCustomerLogoutObserver           |
+| cms_wysiwyg_images_static_urls_allowed                       | catalog_wysiwyg                            | Magento\Catalog\Observer\CatalogCheckIsUsingStaticUrlsAllowedObserver |
+| catalog_category_change_products                             | category_product_indexer                   | Magento\Catalog\Observer\CategoryProductIndexer                       |
+| category_move                                                | clean_cagegory_page_cache                  | Magento\Catalog\Observer\FlushCategoryPagesCache                      |
+
+## Plugins (Interceptors)
+### global
+|                            TARGET                            |                         TYPE                          |                                                NAME                                                |
+|--------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Magento\Customer\Model\ResourceModel\Visitor                 | catalogLog                                            | Magento\Catalog\Model\Plugin\Log                                                                   |
+| Magento\Catalog\Model\Category\DataProvider                  | set_page_layout_default_value                         | Magento\Catalog\Model\Plugin\SetPageLayoutDefaultValue                                             |
+| Magento\Theme\Block\Html\Topmenu                             | catalogTopmenu                                        | Magento\Catalog\Plugin\Block\Topmenu                                                               |
+| Magento\Framework\Mview\View\StateInterface                  | setStatusForMview                                     | Magento\Catalog\Model\Indexer\Category\Product\Plugin\MviewState                                   |
+| Magento\Store\Model\ResourceModel\Website                    | invalidatePriceIndexerOnWebsite                       | Magento\Catalog\Model\Indexer\Product\Price\Plugin\Website                                         |
+| Magento\Store\Model\ResourceModel\Website                    | categoryProductWebsiteAfterDelete                     | \Magento\Catalog\Model\Indexer\Category\Product\Plugin\Website                                     |
+| Magento\Store\Model\ResourceModel\Store                      | storeViewResourceAroundSave                           | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreView                                       |
+| Magento\Store\Model\ResourceModel\Store                      | catalogProductFlatIndexerStore                        | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\Store                                            |
+| Magento\Store\Model\ResourceModel\Store                      | categoryStoreAroundSave                               | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreView                                    |
+| Magento\Store\Model\ResourceModel\Store                      | productAttributesStoreViewSave                        | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\StoreView                                         |
+| Magento\Store\Model\ResourceModel\Group                      | storeGroupResourceAroundSave                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreGroup                                      |
+| Magento\Store\Model\ResourceModel\Group                      | catalogProductFlatIndexerStoreGroup                   | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\StoreGroup                                       |
+| Magento\Store\Model\ResourceModel\Group                      | categoryStoreGroupAroundSave                          | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreGroup                                   |
+| Magento\Customer\Api\GroupRepositoryInterface                | invalidatePriceIndexerOnCustomerGroup                 | Magento\Catalog\Model\Indexer\Product\Price\Plugin\CustomerGroup                                   |
+| Magento\Indexer\Model\Config\Data                            | indexerCategoryFlatConfigGet                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\IndexerConfigData                               |
+| Magento\Indexer\Model\Config\Data                            | indexerProductFlatConfigGet                           | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\IndexerConfigData                                |
+| Magento\Eav\Model\Entity\Attribute\Set                       | invalidateEavIndexerOnAttributeSetSave                | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\AttributeSet                                      |
+| Magento\CatalogInventory\Model\Config\Backend\ShowOutOfStock | showOutOfStockValueChanged                            | Magento\Catalog\Model\Plugin\ShowOutOfStockConfig                                                  |
+| Magento\Catalog\Model\ResourceModel\Config                   | productListingAttributesCaching                       | Magento\Catalog\Plugin\Model\ResourceModel\Config                                                  |
+| Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend   | attributeValidation                                   | Magento\Catalog\Plugin\Model\Attribute\Backend\AttributeValidation                                 |
+| Magento\Eav\Model\ResourceModel\ReadSnapshot                 | catalogReadSnapshot                                   | Magento\Catalog\Plugin\Model\ResourceModel\ReadSnapshotPlugin                                      |
+| Magento\Quote\Model\Quote\Item\ToOrderItem                   | copy_quote_files_to_order                             | Magento\Catalog\Model\Plugin\QuoteItemProductOption                                                |
+| Magento\Catalog\Api\ProductRepositoryInterface               | remove_images_from_gallery_after_removing_product     | Magento\Catalog\Plugin\RemoveImagesFromGalleryAfterRemovingProduct                                 |
+| Magento\Framework\View\Layout                                | catalog-session-depersonalize                         | Magento\Catalog\Model\Layout\DepersonalizePlugin                                                   |
+| Magento\Framework\Pricing\Render\PriceBox                    | catalog_price_box_key                                 | Magento\Catalog\Block\Category\Plugin\PriceBoxTags                                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Framework\App\Action\AbstractAction                  | catalog_app_action_dispatch_controller_context_plugin | Magento\Catalog\Plugin\Framework\App\Action\ContextPlugin                                          |
+| Magento\Catalog\Model\Indexer\Category\Product\Action\Full   | invalidate_pagecache_after_full_reindex               | Magento\Catalog\Plugin\Model\Indexer\Category\Product\Execute                                      |
+| Magento\Catalog\Model\ResourceModel\Attribute                | invalidate_pagecache_after_attribute_save             | Magento\Catalog\Plugin\Model\ResourceModel\Attribute\Save                                          |
+| Magento\Catalog\Model\Product\Action                         | invalidate_pagecache_after_update_product_attributes  | Magento\Catalog\Plugin\Model\Product\Action\UpdateAttributesFlushCache                             |
+| Magento\Eav\Api\AttributeSetRepositoryInterface              | remove_products                                       | Magento\Catalog\Plugin\Model\AttributeSetRepository\RemoveProducts                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+
+### frontend
+|                            TARGET                            |                         TYPE                          |                                                NAME                                                |
+|--------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Magento\Customer\Model\ResourceModel\Visitor                 | catalogLog                                            | Magento\Catalog\Model\Plugin\Log                                                                   |
+| Magento\Catalog\Model\Category\DataProvider                  | set_page_layout_default_value                         | Magento\Catalog\Model\Plugin\SetPageLayoutDefaultValue                                             |
+| Magento\Theme\Block\Html\Topmenu                             | catalogTopmenu                                        | Magento\Catalog\Plugin\Block\Topmenu                                                               |
+| Magento\Framework\Mview\View\StateInterface                  | setStatusForMview                                     | Magento\Catalog\Model\Indexer\Category\Product\Plugin\MviewState                                   |
+| Magento\Store\Model\ResourceModel\Website                    | invalidatePriceIndexerOnWebsite                       | Magento\Catalog\Model\Indexer\Product\Price\Plugin\Website                                         |
+| Magento\Store\Model\ResourceModel\Website                    | categoryProductWebsiteAfterDelete                     | \Magento\Catalog\Model\Indexer\Category\Product\Plugin\Website                                     |
+| Magento\Store\Model\ResourceModel\Store                      | storeViewResourceAroundSave                           | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreView                                       |
+| Magento\Store\Model\ResourceModel\Store                      | catalogProductFlatIndexerStore                        | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\Store                                            |
+| Magento\Store\Model\ResourceModel\Store                      | categoryStoreAroundSave                               | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreView                                    |
+| Magento\Store\Model\ResourceModel\Store                      | productAttributesStoreViewSave                        | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\StoreView                                         |
+| Magento\Store\Model\ResourceModel\Group                      | storeGroupResourceAroundSave                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreGroup                                      |
+| Magento\Store\Model\ResourceModel\Group                      | catalogProductFlatIndexerStoreGroup                   | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\StoreGroup                                       |
+| Magento\Store\Model\ResourceModel\Group                      | categoryStoreGroupAroundSave                          | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreGroup                                   |
+| Magento\Customer\Api\GroupRepositoryInterface                | invalidatePriceIndexerOnCustomerGroup                 | Magento\Catalog\Model\Indexer\Product\Price\Plugin\CustomerGroup                                   |
+| Magento\Indexer\Model\Config\Data                            | indexerCategoryFlatConfigGet                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\IndexerConfigData                               |
+| Magento\Indexer\Model\Config\Data                            | indexerProductFlatConfigGet                           | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\IndexerConfigData                                |
+| Magento\Eav\Model\Entity\Attribute\Set                       | invalidateEavIndexerOnAttributeSetSave                | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\AttributeSet                                      |
+| Magento\CatalogInventory\Model\Config\Backend\ShowOutOfStock | showOutOfStockValueChanged                            | Magento\Catalog\Model\Plugin\ShowOutOfStockConfig                                                  |
+| Magento\Catalog\Model\ResourceModel\Config                   | productListingAttributesCaching                       | Magento\Catalog\Plugin\Model\ResourceModel\Config                                                  |
+| Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend   | attributeValidation                                   | Magento\Catalog\Plugin\Model\Attribute\Backend\AttributeValidation                                 |
+| Magento\Eav\Model\ResourceModel\ReadSnapshot                 | catalogReadSnapshot                                   | Magento\Catalog\Plugin\Model\ResourceModel\ReadSnapshotPlugin                                      |
+| Magento\Quote\Model\Quote\Item\ToOrderItem                   | copy_quote_files_to_order                             | Magento\Catalog\Model\Plugin\QuoteItemProductOption                                                |
+| Magento\Catalog\Api\ProductRepositoryInterface               | remove_images_from_gallery_after_removing_product     | Magento\Catalog\Plugin\RemoveImagesFromGalleryAfterRemovingProduct                                 |
+| Magento\Framework\View\Layout                                | catalog-session-depersonalize                         | Magento\Catalog\Model\Layout\DepersonalizePlugin                                                   |
+| Magento\Framework\Pricing\Render\PriceBox                    | catalog_price_box_key                                 | Magento\Catalog\Block\Category\Plugin\PriceBoxTags                                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Framework\App\Action\AbstractAction                  | catalog_app_action_dispatch_controller_context_plugin | Magento\Catalog\Plugin\Framework\App\Action\ContextPlugin                                          |
+| Magento\Catalog\Model\Indexer\Category\Product\Action\Full   | invalidate_pagecache_after_full_reindex               | Magento\Catalog\Plugin\Model\Indexer\Category\Product\Execute                                      |
+| Magento\Catalog\Model\ResourceModel\Attribute                | invalidate_pagecache_after_attribute_save             | Magento\Catalog\Plugin\Model\ResourceModel\Attribute\Save                                          |
+| Magento\Catalog\Model\Product\Action                         | invalidate_pagecache_after_update_product_attributes  | Magento\Catalog\Plugin\Model\Product\Action\UpdateAttributesFlushCache                             |
+| Magento\Eav\Api\AttributeSetRepositoryInterface              | remove_products                                       | Magento\Catalog\Plugin\Model\AttributeSetRepository\RemoveProducts                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+
+### adminhtml
+|                            TARGET                            |                         TYPE                          |                                                NAME                                                |
+|--------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Magento\Customer\Model\ResourceModel\Visitor                 | catalogLog                                            | Magento\Catalog\Model\Plugin\Log                                                                   |
+| Magento\Catalog\Model\Category\DataProvider                  | set_page_layout_default_value                         | Magento\Catalog\Model\Plugin\SetPageLayoutDefaultValue                                             |
+| Magento\Theme\Block\Html\Topmenu                             | catalogTopmenu                                        | Magento\Catalog\Plugin\Block\Topmenu                                                               |
+| Magento\Framework\Mview\View\StateInterface                  | setStatusForMview                                     | Magento\Catalog\Model\Indexer\Category\Product\Plugin\MviewState                                   |
+| Magento\Store\Model\ResourceModel\Website                    | invalidatePriceIndexerOnWebsite                       | Magento\Catalog\Model\Indexer\Product\Price\Plugin\Website                                         |
+| Magento\Store\Model\ResourceModel\Website                    | categoryProductWebsiteAfterDelete                     | \Magento\Catalog\Model\Indexer\Category\Product\Plugin\Website                                     |
+| Magento\Store\Model\ResourceModel\Store                      | storeViewResourceAroundSave                           | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreView                                       |
+| Magento\Store\Model\ResourceModel\Store                      | catalogProductFlatIndexerStore                        | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\Store                                            |
+| Magento\Store\Model\ResourceModel\Store                      | categoryStoreAroundSave                               | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreView                                    |
+| Magento\Store\Model\ResourceModel\Store                      | productAttributesStoreViewSave                        | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\StoreView                                         |
+| Magento\Store\Model\ResourceModel\Group                      | storeGroupResourceAroundSave                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreGroup                                      |
+| Magento\Store\Model\ResourceModel\Group                      | catalogProductFlatIndexerStoreGroup                   | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\StoreGroup                                       |
+| Magento\Store\Model\ResourceModel\Group                      | categoryStoreGroupAroundSave                          | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreGroup                                   |
+| Magento\Customer\Api\GroupRepositoryInterface                | invalidatePriceIndexerOnCustomerGroup                 | Magento\Catalog\Model\Indexer\Product\Price\Plugin\CustomerGroup                                   |
+| Magento\Indexer\Model\Config\Data                            | indexerCategoryFlatConfigGet                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\IndexerConfigData                               |
+| Magento\Indexer\Model\Config\Data                            | indexerProductFlatConfigGet                           | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\IndexerConfigData                                |
+| Magento\Eav\Model\Entity\Attribute\Set                       | invalidateEavIndexerOnAttributeSetSave                | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\AttributeSet                                      |
+| Magento\CatalogInventory\Model\Config\Backend\ShowOutOfStock | showOutOfStockValueChanged                            | Magento\Catalog\Model\Plugin\ShowOutOfStockConfig                                                  |
+| Magento\Catalog\Model\ResourceModel\Config                   | productListingAttributesCaching                       | Magento\Catalog\Plugin\Model\ResourceModel\Config                                                  |
+| Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend   | attributeValidation                                   | Magento\Catalog\Plugin\Model\Attribute\Backend\AttributeValidation                                 |
+| Magento\Eav\Model\ResourceModel\ReadSnapshot                 | catalogReadSnapshot                                   | Magento\Catalog\Plugin\Model\ResourceModel\ReadSnapshotPlugin                                      |
+| Magento\Quote\Model\Quote\Item\ToOrderItem                   | copy_quote_files_to_order                             | Magento\Catalog\Model\Plugin\QuoteItemProductOption                                                |
+| Magento\Catalog\Api\ProductRepositoryInterface               | remove_images_from_gallery_after_removing_product     | Magento\Catalog\Plugin\RemoveImagesFromGalleryAfterRemovingProduct                                 |
+| Magento\Framework\View\Layout                                | catalog-session-depersonalize                         | Magento\Catalog\Model\Layout\DepersonalizePlugin                                                   |
+| Magento\Framework\Pricing\Render\PriceBox                    | catalog_price_box_key                                 | Magento\Catalog\Block\Category\Plugin\PriceBoxTags                                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Framework\App\Action\AbstractAction                  | catalog_app_action_dispatch_controller_context_plugin | Magento\Catalog\Plugin\Framework\App\Action\ContextPlugin                                          |
+| Magento\Catalog\Model\Indexer\Category\Product\Action\Full   | invalidate_pagecache_after_full_reindex               | Magento\Catalog\Plugin\Model\Indexer\Category\Product\Execute                                      |
+| Magento\Catalog\Model\ResourceModel\Attribute                | invalidate_pagecache_after_attribute_save             | Magento\Catalog\Plugin\Model\ResourceModel\Attribute\Save                                          |
+| Magento\Catalog\Model\Product\Action                         | invalidate_pagecache_after_update_product_attributes  | Magento\Catalog\Plugin\Model\Product\Action\UpdateAttributesFlushCache                             |
+| Magento\Eav\Api\AttributeSetRepositoryInterface              | remove_products                                       | Magento\Catalog\Plugin\Model\AttributeSetRepository\RemoveProducts                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+
+### webapi_rest
+|                            TARGET                            |                         TYPE                          |                                                NAME                                                |
+|--------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Magento\Customer\Model\ResourceModel\Visitor                 | catalogLog                                            | Magento\Catalog\Model\Plugin\Log                                                                   |
+| Magento\Catalog\Model\Category\DataProvider                  | set_page_layout_default_value                         | Magento\Catalog\Model\Plugin\SetPageLayoutDefaultValue                                             |
+| Magento\Theme\Block\Html\Topmenu                             | catalogTopmenu                                        | Magento\Catalog\Plugin\Block\Topmenu                                                               |
+| Magento\Framework\Mview\View\StateInterface                  | setStatusForMview                                     | Magento\Catalog\Model\Indexer\Category\Product\Plugin\MviewState                                   |
+| Magento\Store\Model\ResourceModel\Website                    | invalidatePriceIndexerOnWebsite                       | Magento\Catalog\Model\Indexer\Product\Price\Plugin\Website                                         |
+| Magento\Store\Model\ResourceModel\Website                    | categoryProductWebsiteAfterDelete                     | \Magento\Catalog\Model\Indexer\Category\Product\Plugin\Website                                     |
+| Magento\Store\Model\ResourceModel\Store                      | storeViewResourceAroundSave                           | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreView                                       |
+| Magento\Store\Model\ResourceModel\Store                      | catalogProductFlatIndexerStore                        | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\Store                                            |
+| Magento\Store\Model\ResourceModel\Store                      | categoryStoreAroundSave                               | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreView                                    |
+| Magento\Store\Model\ResourceModel\Store                      | productAttributesStoreViewSave                        | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\StoreView                                         |
+| Magento\Store\Model\ResourceModel\Group                      | storeGroupResourceAroundSave                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreGroup                                      |
+| Magento\Store\Model\ResourceModel\Group                      | catalogProductFlatIndexerStoreGroup                   | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\StoreGroup                                       |
+| Magento\Store\Model\ResourceModel\Group                      | categoryStoreGroupAroundSave                          | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreGroup                                   |
+| Magento\Customer\Api\GroupRepositoryInterface                | invalidatePriceIndexerOnCustomerGroup                 | Magento\Catalog\Model\Indexer\Product\Price\Plugin\CustomerGroup                                   |
+| Magento\Indexer\Model\Config\Data                            | indexerCategoryFlatConfigGet                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\IndexerConfigData                               |
+| Magento\Indexer\Model\Config\Data                            | indexerProductFlatConfigGet                           | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\IndexerConfigData                                |
+| Magento\Eav\Model\Entity\Attribute\Set                       | invalidateEavIndexerOnAttributeSetSave                | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\AttributeSet                                      |
+| Magento\CatalogInventory\Model\Config\Backend\ShowOutOfStock | showOutOfStockValueChanged                            | Magento\Catalog\Model\Plugin\ShowOutOfStockConfig                                                  |
+| Magento\Catalog\Model\ResourceModel\Config                   | productListingAttributesCaching                       | Magento\Catalog\Plugin\Model\ResourceModel\Config                                                  |
+| Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend   | attributeValidation                                   | Magento\Catalog\Plugin\Model\Attribute\Backend\AttributeValidation                                 |
+| Magento\Eav\Model\ResourceModel\ReadSnapshot                 | catalogReadSnapshot                                   | Magento\Catalog\Plugin\Model\ResourceModel\ReadSnapshotPlugin                                      |
+| Magento\Quote\Model\Quote\Item\ToOrderItem                   | copy_quote_files_to_order                             | Magento\Catalog\Model\Plugin\QuoteItemProductOption                                                |
+| Magento\Catalog\Api\ProductRepositoryInterface               | remove_images_from_gallery_after_removing_product     | Magento\Catalog\Plugin\RemoveImagesFromGalleryAfterRemovingProduct                                 |
+| Magento\Framework\View\Layout                                | catalog-session-depersonalize                         | Magento\Catalog\Model\Layout\DepersonalizePlugin                                                   |
+| Magento\Framework\Pricing\Render\PriceBox                    | catalog_price_box_key                                 | Magento\Catalog\Block\Category\Plugin\PriceBoxTags                                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Framework\App\Action\AbstractAction                  | catalog_app_action_dispatch_controller_context_plugin | Magento\Catalog\Plugin\Framework\App\Action\ContextPlugin                                          |
+| Magento\Catalog\Model\Indexer\Category\Product\Action\Full   | invalidate_pagecache_after_full_reindex               | Magento\Catalog\Plugin\Model\Indexer\Category\Product\Execute                                      |
+| Magento\Catalog\Model\ResourceModel\Attribute                | invalidate_pagecache_after_attribute_save             | Magento\Catalog\Plugin\Model\ResourceModel\Attribute\Save                                          |
+| Magento\Catalog\Model\Product\Action                         | invalidate_pagecache_after_update_product_attributes  | Magento\Catalog\Plugin\Model\Product\Action\UpdateAttributesFlushCache                             |
+| Magento\Eav\Api\AttributeSetRepositoryInterface              | remove_products                                       | Magento\Catalog\Plugin\Model\AttributeSetRepository\RemoveProducts                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+
+### webapi_soap
+|                            TARGET                            |                         TYPE                          |                                                NAME                                                |
+|--------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Magento\Customer\Model\ResourceModel\Visitor                 | catalogLog                                            | Magento\Catalog\Model\Plugin\Log                                                                   |
+| Magento\Catalog\Model\Category\DataProvider                  | set_page_layout_default_value                         | Magento\Catalog\Model\Plugin\SetPageLayoutDefaultValue                                             |
+| Magento\Theme\Block\Html\Topmenu                             | catalogTopmenu                                        | Magento\Catalog\Plugin\Block\Topmenu                                                               |
+| Magento\Framework\Mview\View\StateInterface                  | setStatusForMview                                     | Magento\Catalog\Model\Indexer\Category\Product\Plugin\MviewState                                   |
+| Magento\Store\Model\ResourceModel\Website                    | invalidatePriceIndexerOnWebsite                       | Magento\Catalog\Model\Indexer\Product\Price\Plugin\Website                                         |
+| Magento\Store\Model\ResourceModel\Website                    | categoryProductWebsiteAfterDelete                     | \Magento\Catalog\Model\Indexer\Category\Product\Plugin\Website                                     |
+| Magento\Store\Model\ResourceModel\Store                      | storeViewResourceAroundSave                           | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreView                                       |
+| Magento\Store\Model\ResourceModel\Store                      | catalogProductFlatIndexerStore                        | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\Store                                            |
+| Magento\Store\Model\ResourceModel\Store                      | categoryStoreAroundSave                               | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreView                                    |
+| Magento\Store\Model\ResourceModel\Store                      | productAttributesStoreViewSave                        | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\StoreView                                         |
+| Magento\Store\Model\ResourceModel\Group                      | storeGroupResourceAroundSave                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\StoreGroup                                      |
+| Magento\Store\Model\ResourceModel\Group                      | catalogProductFlatIndexerStoreGroup                   | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\StoreGroup                                       |
+| Magento\Store\Model\ResourceModel\Group                      | categoryStoreGroupAroundSave                          | Magento\Catalog\Model\Indexer\Category\Product\Plugin\StoreGroup                                   |
+| Magento\Customer\Api\GroupRepositoryInterface                | invalidatePriceIndexerOnCustomerGroup                 | Magento\Catalog\Model\Indexer\Product\Price\Plugin\CustomerGroup                                   |
+| Magento\Indexer\Model\Config\Data                            | indexerCategoryFlatConfigGet                          | Magento\Catalog\Model\Indexer\Category\Flat\Plugin\IndexerConfigData                               |
+| Magento\Indexer\Model\Config\Data                            | indexerProductFlatConfigGet                           | Magento\Catalog\Model\Indexer\Product\Flat\Plugin\IndexerConfigData                                |
+| Magento\Eav\Model\Entity\Attribute\Set                       | invalidateEavIndexerOnAttributeSetSave                | Magento\Catalog\Model\Indexer\Product\Eav\Plugin\AttributeSet                                      |
+| Magento\CatalogInventory\Model\Config\Backend\ShowOutOfStock | showOutOfStockValueChanged                            | Magento\Catalog\Model\Plugin\ShowOutOfStockConfig                                                  |
+| Magento\Catalog\Model\ResourceModel\Config                   | productListingAttributesCaching                       | Magento\Catalog\Plugin\Model\ResourceModel\Config                                                  |
+| Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend   | attributeValidation                                   | Magento\Catalog\Plugin\Model\Attribute\Backend\AttributeValidation                                 |
+| Magento\Eav\Model\ResourceModel\ReadSnapshot                 | catalogReadSnapshot                                   | Magento\Catalog\Plugin\Model\ResourceModel\ReadSnapshotPlugin                                      |
+| Magento\Quote\Model\Quote\Item\ToOrderItem                   | copy_quote_files_to_order                             | Magento\Catalog\Model\Plugin\QuoteItemProductOption                                                |
+| Magento\Catalog\Api\ProductRepositoryInterface               | remove_images_from_gallery_after_removing_product     | Magento\Catalog\Plugin\RemoveImagesFromGalleryAfterRemovingProduct                                 |
+| Magento\Framework\View\Layout                                | catalog-session-depersonalize                         | Magento\Catalog\Model\Layout\DepersonalizePlugin                                                   |
+| Magento\Framework\Pricing\Render\PriceBox                    | catalog_price_box_key                                 | Magento\Catalog\Block\Category\Plugin\PriceBoxTags                                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Framework\App\Action\AbstractAction                  | catalog_app_action_dispatch_controller_context_plugin | Magento\Catalog\Plugin\Framework\App\Action\ContextPlugin                                          |
+| Magento\Catalog\Model\Indexer\Category\Product\Action\Full   | invalidate_pagecache_after_full_reindex               | Magento\Catalog\Plugin\Model\Indexer\Category\Product\Execute                                      |
+| Magento\Catalog\Model\ResourceModel\Attribute                | invalidate_pagecache_after_attribute_save             | Magento\Catalog\Plugin\Model\ResourceModel\Attribute\Save                                          |
+| Magento\Catalog\Model\Product\Action                         | invalidate_pagecache_after_update_product_attributes  | Magento\Catalog\Plugin\Model\Product\Action\UpdateAttributesFlushCache                             |
+| Magento\Eav\Api\AttributeSetRepositoryInterface              | remove_products                                       | Magento\Catalog\Plugin\Model\AttributeSetRepository\RemoveProducts                                 |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_category_product_index_table_name         | Magento\Catalog\Model\Indexer\Category\Product\Plugin\TableResolver                                |
+| Magento\Framework\App\ResourceConnection                     | get_catalog_product_price_index_table_name            | Magento\Catalog\Model\Indexer\Product\Price\Plugin\TableResolver                                   |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface   | updateProductCustomOptionsAttributes                  | Magento\Catalog\Plugin\Model\Product\Option\UpdateProductCustomOptionsAttributes                   |
+| Magento\Catalog\Api\ProductRepositoryInterface               | product_authorization                                 | Magento\Catalog\Plugin\ProductAuthorization                                                        |
+| Magento\Catalog\Api\CategoryRepositoryInterface              | category_authorization                                | Magento\Catalog\Plugin\CategoryAuthorization                                                       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_save_product_links                      | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterSaveProductLinksPlugin       |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface           | reindex_after_delete_by_id_product_links              | Magento\Catalog\Plugin\Api\ProductLinkRepositoryInterface\ReindexAfterDeleteByIdProductLinksPlugin |
+
 ## Preferences
+### global
+|                                         FOR                                         |                                            TYPE                                             |
+|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| Magento\Catalog\Api\Data\ProductInterface                                           | Magento\Catalog\Model\Product                                                               |
+| Magento\Catalog\Api\ProductRepositoryInterface                                      | Magento\Catalog\Model\ProductRepository                                                     |
+| Magento\Catalog\Api\CategoryAttributeRepositoryInterface                            | Magento\Catalog\Model\Category\AttributeRepository                                          |
+| Magento\Catalog\Api\Data\CategoryAttributeInterface                                 | Magento\Catalog\Model\Category\Attribute                                                    |
+| Magento\Catalog\Api\CategoryAttributeOptionManagementInterface                      | Magento\Catalog\Model\Category\Attribute\OptionManagement                                   |
+| Magento\Catalog\Model\ProductTypes\ConfigInterface                                  | Magento\Catalog\Model\ProductTypes\Config                                                   |
+| Magento\Catalog\Model\ProductOptions\ConfigInterface                                | Magento\Catalog\Model\ProductOptions\Config                                                 |
+| Magento\Catalog\Model\Product\PriceModifierInterface                                | Magento\Catalog\Model\Product\PriceModifier\Composite                                       |
+| Magento\Catalog\Model\Attribute\LockValidatorInterface                              | Magento\Catalog\Model\Attribute\LockValidatorComposite                                      |
+| Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapperInterface       | Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapper                        |
+| Magento\Catalog\Block\Product\ReviewRendererInterface                               | Magento\Catalog\Block\Product\ReviewRenderer\DefaultProvider                                |
+| Magento\Framework\Pricing\PriceInfoInterface                                        | Magento\Framework\Pricing\PriceInfo\Base                                                    |
+| Magento\Framework\Pricing\PriceCurrencyInterface                                    | Magento\Directory\Model\PriceCurrency                                                       |
+| Magento\Framework\Pricing\Adjustment\CalculatorInterface                            | Magento\Framework\Pricing\Adjustment\Calculator                                             |
+| Magento\Catalog\Api\Data\CategoryInterface                                          | Magento\Catalog\Model\Category                                                              |
+| Magento\Catalog\Api\CategoryManagementInterface                                     | Magento\Catalog\Model\CategoryManagement                                                    |
+| Magento\Catalog\Api\CategoryRepositoryInterface                                     | Magento\Catalog\Model\CategoryRepository                                                    |
+| Magento\Catalog\Api\Data\CategoryTreeInterface                                      | Magento\Catalog\Model\Category                                                              |
+| Magento\Catalog\Api\ProductAttributeRepositoryInterface                             | Magento\Catalog\Model\Product\Attribute\Repository                                          |
+| Magento\Catalog\Api\Data\ProductAttributeInterface                                  | Magento\Catalog\Model\ResourceModel\Eav\Attribute                                           |
+| Magento\Catalog\Api\ProductTypeListInterface                                        | Magento\Catalog\Model\ProductTypeList                                                       |
+| Magento\Catalog\Api\Data\ProductTypeInterface                                       | Magento\Catalog\Model\ProductType                                                           |
+| Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface                 | Magento\Catalog\Model\Product\Gallery\GalleryManagement                                     |
+| Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface                 | Magento\Catalog\Model\Product\Gallery\Entry                                                 |
+| Magento\Catalog\Api\ProductMediaAttributeManagementInterface                        | Magento\Catalog\Model\Product\Media\AttributeManagement                                     |
+| Magento\Catalog\Api\ProductAttributeTypesListInterface                              | Magento\Catalog\Model\Product\Attribute\TypesList                                           |
+| Magento\Catalog\Api\Data\ProductAttributeTypeInterface                              | Magento\Catalog\Model\Product\Attribute\Type                                                |
+| Magento\Catalog\Api\ProductAttributeGroupRepositoryInterface                        | Magento\Catalog\Model\ProductAttributeGroupRepository                                       |
+| Magento\Catalog\Api\ProductAttributeOptionManagementInterface                       | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
+| Magento\Catalog\Api\ProductAttributeOptionUpdateInterface                           | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface                                  | Magento\Catalog\Model\ProductLink\Repository                                                |
+| Magento\Catalog\Api\Data\ProductAttributeSearchResultsInterface                     | Magento\Catalog\Model\ProductAttributeSearchResults                                         |
+| Magento\Catalog\Api\Data\CategoryAttributeSearchResultsInterface                    | Magento\Catalog\Model\CategoryAttributeSearchResults                                        |
+| Magento\Catalog\Api\Data\ProductSearchResultsInterface                              | Magento\Catalog\Model\ProductSearchResults                                                  |
+| Magento\Catalog\Api\ProductAttributeManagementInterface                             | Magento\Catalog\Model\Product\Attribute\Management                                          |
+| Magento\Catalog\Api\AttributeSetManagementInterface                                 | Magento\Catalog\Model\Product\Attribute\SetManagement                                       |
+| Magento\Catalog\Api\AttributeSetRepositoryInterface                                 | Magento\Catalog\Model\Product\Attribute\SetRepository                                       |
+| Magento\Catalog\Api\ProductManagementInterface                                      | Magento\Catalog\Model\ProductManagement                                                     |
+| Magento\Catalog\Api\AttributeSetFinderInterface                                     | Magento\Catalog\Model\Product\Attribute\AttributeSetFinder                                  |
+| Magento\Catalog\Api\CategoryListInterface                                           | Magento\Catalog\Model\CategoryList                                                          |
+| Magento\Catalog\Api\Data\CategorySearchResultsInterface                             | Magento\Catalog\Model\CategorySearchResults                                                 |
+| Magento\Catalog\Model\Config\Source\ProductPriceOptionsInterface                    | Magento\Catalog\Model\Config\Source\Product\Options\Price                                   |
+| Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterface                   | Magento\Catalog\Model\Indexer\Product\Flat\Table\Builder                                    |
+| Magento\Catalog\Api\ProductRenderListInterface                                      | Magento\Catalog\Model\ProductRenderList                                                     |
+| Magento\Catalog\Api\Data\ProductRenderSearchResultsInterface                        | Magento\Catalog\Model\ProductRenderSearchResults                                            |
+| Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolverInterface             | Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver                              |
+| Magento\Catalog\Model\Product\Media\ConfigInterface                                 | Magento\Catalog\Model\Product\Media\Config                                                  |
+| Magento\Framework\View\Asset\ContextInterface                                       | Magento\Catalog\Model\View\Asset\Image\Context                                              |
+| Magento\Catalog\Api\TierPriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\TierPriceStorage                                        |
+| Magento\Catalog\Api\Data\TierPriceInterface                                         | Magento\Catalog\Model\Product\Price\TierPrice                                               |
+| Magento\Catalog\Api\BasePriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\BasePriceStorage                                        |
+| Magento\Catalog\Api\Data\BasePriceInterface                                         | Magento\Catalog\Model\Product\Price\BasePrice                                               |
+| Magento\Catalog\Api\CostStorageInterface                                            | Magento\Catalog\Model\Product\Price\CostStorage                                             |
+| Magento\Catalog\Api\Data\CostInterface                                              | Magento\Catalog\Model\Product\Price\Cost                                                    |
+| Magento\Catalog\Api\SpecialPriceStorageInterface                                    | Magento\Catalog\Model\Product\Price\SpecialPriceStorage                                     |
+| Magento\Catalog\Api\Data\SpecialPriceInterface                                      | Magento\Catalog\Model\Product\Price\SpecialPrice                                            |
+| Magento\Catalog\Api\Data\PriceUpdateResultInterface                                 | Magento\Catalog\Model\Product\Price\PriceUpdateResult                                       |
+| Magento\Catalog\Api\SpecialPriceInterface                                           | Magento\Catalog\Model\ResourceModel\Product\Price\SpecialPrice                              |
+| Magento\Catalog\Model\ProductIdLocatorInterface                                     | Magento\Catalog\Model\ProductIdLocator                                                      |
+| Magento\Catalog\Api\Data\ProductRender\ButtonInterface                              | Magento\Catalog\Model\ProductRender\Button                                                  |
+| Magento\Catalog\Api\Data\ProductRender\ImageInterface                               | Magento\Catalog\Model\ProductRender\Image                                                   |
+| Magento\Catalog\Api\Data\ProductRender\PriceInfoInterface                           | Magento\Catalog\Model\ProductRender\PriceInfo                                               |
+| Magento\Catalog\Api\Data\ProductRender\FormattedPriceInfoInterface                  | Magento\Catalog\Model\ProductRender\FormattedPriceInfo                                      |
+| Magento\Framework\Indexer\BatchProviderInterface                                    | Magento\Framework\Indexer\BatchProvider                                                     |
+| Magento\Catalog\Model\Indexer\Product\Price\UpdateIndexInterface                    | Magento\Catalog\Model\Indexer\Product\Price\InvalidateIndex                                 |
+| Magento\Catalog\Model\Product\Gallery\ImagesConfigFactoryInterface                  | Magento\Catalog\Model\Product\Gallery\ImagesConfigFactory                                   |
+| Magento\Catalog\Model\Product\Configuration\Item\ItemResolverInterface              | Magento\Catalog\Model\Product\Configuration\Item\ItemResolverComposite                      |
+| Magento\Catalog\Api\Data\MassActionInterface                                        | Magento\Catalog\Model\MassAction                                                            |
+| Magento\Catalog\Model\ProductLink\Data\ListCriteriaInterface                        | Magento\Catalog\Model\ProductLink\Data\ListCriteria                                         |
+| Magento\Catalog\Api\CategoryListDeleteBySkuInterface                                | Magento\Catalog\Model\CategoryLinkRepository                                                |
+| Magento\Theme\CustomerData\MessagesProviderInterface                                | Magento\Catalog\Model\Theme\CustomerData\MessagesProvider                                   |
+| Magento\Catalog\Api\ProductLinkTypeListInterface                                    | Magento\Catalog\Model\Product\LinkTypeProvider                                              |
+| Magento\Catalog\Api\Data\ProductLinkAttributeInterface                              | Magento\Catalog\Model\ProductLink\Attribute                                                 |
+| Magento\Catalog\Api\Data\ProductLinkTypeInterface                                   | Magento\Catalog\Model\ProductLink\Type                                                      |
+| Magento\Catalog\Api\ProductLinkManagementInterface                                  | Magento\Catalog\Model\ProductLink\Management                                                |
+| Magento\Catalog\Api\Data\ProductLinkInterface                                       | Magento\Catalog\Model\ProductLink\Link                                                      |
+| Magento\Catalog\Api\CategoryLinkManagementInterface                                 | Magento\Catalog\Model\CategoryLinkManagement                                                |
+| Magento\Catalog\Api\Data\ProductWebsiteLinkInterface                                | Magento\Catalog\Model\ProductWebsiteLink                                                    |
+| Magento\Catalog\Api\ProductWebsiteLinkRepositoryInterface                           | Magento\Catalog\Model\ProductWebsiteLinkRepository                                          |
+| Magento\Catalog\Api\CategoryLinkRepositoryInterface                                 | Magento\Catalog\Model\CategoryLinkRepository                                                |
+| Magento\Catalog\Api\Data\ProductCustomOptionInterface                               | Magento\Catalog\Model\Product\Option                                                        |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface                          | Magento\Catalog\Model\Product\Option\Repository                                             |
+| Magento\Catalog\Api\Data\ProductCustomOptionTypeInterface                           | Magento\Catalog\Model\Product\Option\Type                                                   |
+| Magento\Catalog\Api\ProductTierPriceManagementInterface                             | Magento\Catalog\Model\Product\TierPriceManagement                                           |
+| Magento\Catalog\Api\ScopedProductTierPriceManagementInterface                       | Magento\Catalog\Model\Product\ScopedTierPriceManagement                                     |
+| Magento\Catalog\Api\Data\ProductTierPriceInterface                                  | Magento\Catalog\Model\Product\TierPrice                                                     |
+| Magento\Catalog\Api\Data\CategoryProductLinkInterface                               | Magento\Catalog\Model\CategoryProductLink                                                   |
+| Magento\Catalog\Api\ProductCustomOptionTypeListInterface                            | Magento\Catalog\Model\ProductOptions\TypeList                                               |
+| Magento\Catalog\Api\Data\ProductCustomOptionValuesInterface                         | Magento\Catalog\Model\Product\Option\Value                                                  |
+| Magento\Catalog\Api\Data\CustomOptionInterface                                      | Magento\Catalog\Model\CustomOptions\CustomOption                                            |
+| Magento\Catalog\Api\Data\ProductOptionInterface                                     | Magento\Catalog\Model\ProductOption                                                         |
+| Magento\Catalog\Api\Data\CategoryLinkInterface                                      | Magento\Catalog\Model\CategoryLink                                                          |
+| Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderInterface     | Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderComposite             |
+| Magento\Catalog\Model\ResourceModel\Product\BaseSelectProcessorInterface            | Magento\Catalog\Model\ResourceModel\Product\CompositeWithWebsiteProcessor                   |
+| Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface                       | Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator                                    |
+| Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\HandlerInterface | Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\Plugin\Handler\Composite |
+| Magento\Catalog\Model\Locator\LocatorInterface                                      | Magento\Catalog\Model\Locator\RegistryLocator                                               |
+| Magento\Catalog\Ui\Component\Listing\Attribute\RepositoryInterface                  | Magento\Catalog\Ui\Component\Listing\Attribute\Repository                                   |
+| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
+| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
+
+### frontend
+|                                         FOR                                         |                                            TYPE                                             |
+|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| Magento\Catalog\Api\Data\ProductInterface                                           | Magento\Catalog\Model\Product                                                               |
+| Magento\Catalog\Api\ProductRepositoryInterface                                      | Magento\Catalog\Model\ProductRepository                                                     |
+| Magento\Catalog\Api\CategoryAttributeRepositoryInterface                            | Magento\Catalog\Model\Category\AttributeRepository                                          |
+| Magento\Catalog\Api\Data\CategoryAttributeInterface                                 | Magento\Catalog\Model\Category\Attribute                                                    |
+| Magento\Catalog\Api\CategoryAttributeOptionManagementInterface                      | Magento\Catalog\Model\Category\Attribute\OptionManagement                                   |
+| Magento\Catalog\Model\ProductTypes\ConfigInterface                                  | Magento\Catalog\Model\ProductTypes\Config                                                   |
+| Magento\Catalog\Model\ProductOptions\ConfigInterface                                | Magento\Catalog\Model\ProductOptions\Config                                                 |
+| Magento\Catalog\Model\Product\PriceModifierInterface                                | Magento\Catalog\Model\Product\PriceModifier\Composite                                       |
+| Magento\Catalog\Model\Attribute\LockValidatorInterface                              | Magento\Catalog\Model\Attribute\LockValidatorComposite                                      |
+| Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapperInterface       | Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapper                        |
+| Magento\Catalog\Block\Product\ReviewRendererInterface                               | Magento\Catalog\Block\Product\ReviewRenderer\DefaultProvider                                |
+| Magento\Framework\Pricing\PriceInfoInterface                                        | Magento\Framework\Pricing\PriceInfo\Base                                                    |
+| Magento\Framework\Pricing\PriceCurrencyInterface                                    | Magento\Directory\Model\PriceCurrency                                                       |
+| Magento\Framework\Pricing\Adjustment\CalculatorInterface                            | Magento\Framework\Pricing\Adjustment\Calculator                                             |
+| Magento\Catalog\Api\Data\CategoryInterface                                          | Magento\Catalog\Model\Category                                                              |
+| Magento\Catalog\Api\CategoryManagementInterface                                     | Magento\Catalog\Model\CategoryManagement                                                    |
+| Magento\Catalog\Api\CategoryRepositoryInterface                                     | Magento\Catalog\Model\CategoryRepository                                                    |
+| Magento\Catalog\Api\Data\CategoryTreeInterface                                      | Magento\Catalog\Model\Category                                                              |
+| Magento\Catalog\Api\ProductAttributeRepositoryInterface                             | Magento\Catalog\Model\Product\Attribute\Repository                                          |
+| Magento\Catalog\Api\Data\ProductAttributeInterface                                  | Magento\Catalog\Model\ResourceModel\Eav\Attribute                                           |
+| Magento\Catalog\Api\ProductTypeListInterface                                        | Magento\Catalog\Model\ProductTypeList                                                       |
+| Magento\Catalog\Api\Data\ProductTypeInterface                                       | Magento\Catalog\Model\ProductType                                                           |
+| Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface                 | Magento\Catalog\Model\Product\Gallery\GalleryManagement                                     |
+| Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface                 | Magento\Catalog\Model\Product\Gallery\Entry                                                 |
+| Magento\Catalog\Api\ProductMediaAttributeManagementInterface                        | Magento\Catalog\Model\Product\Media\AttributeManagement                                     |
+| Magento\Catalog\Api\ProductAttributeTypesListInterface                              | Magento\Catalog\Model\Product\Attribute\TypesList                                           |
+| Magento\Catalog\Api\Data\ProductAttributeTypeInterface                              | Magento\Catalog\Model\Product\Attribute\Type                                                |
+| Magento\Catalog\Api\ProductAttributeGroupRepositoryInterface                        | Magento\Catalog\Model\ProductAttributeGroupRepository                                       |
+| Magento\Catalog\Api\ProductAttributeOptionManagementInterface                       | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
+| Magento\Catalog\Api\ProductAttributeOptionUpdateInterface                           | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
+| Magento\Catalog\Api\ProductLinkRepositoryInterface                                  | Magento\Catalog\Model\ProductLink\Repository                                                |
+| Magento\Catalog\Api\Data\ProductAttributeSearchResultsInterface                     | Magento\Catalog\Model\ProductAttributeSearchResults                                         |
+| Magento\Catalog\Api\Data\CategoryAttributeSearchResultsInterface                    | Magento\Catalog\Model\CategoryAttributeSearchResults                                        |
+| Magento\Catalog\Api\Data\ProductSearchResultsInterface                              | Magento\Catalog\Model\ProductSearchResults                                                  |
+| Magento\Catalog\Api\ProductAttributeManagementInterface                             | Magento\Catalog\Model\Product\Attribute\Management                                          |
+| Magento\Catalog\Api\AttributeSetManagementInterface                                 | Magento\Catalog\Model\Product\Attribute\SetManagement                                       |
+| Magento\Catalog\Api\AttributeSetRepositoryInterface                                 | Magento\Catalog\Model\Product\Attribute\SetRepository                                       |
+| Magento\Catalog\Api\ProductManagementInterface                                      | Magento\Catalog\Model\ProductManagement                                                     |
+| Magento\Catalog\Api\AttributeSetFinderInterface                                     | Magento\Catalog\Model\Product\Attribute\AttributeSetFinder                                  |
+| Magento\Catalog\Api\CategoryListInterface                                           | Magento\Catalog\Model\CategoryList                                                          |
+| Magento\Catalog\Api\Data\CategorySearchResultsInterface                             | Magento\Catalog\Model\CategorySearchResults                                                 |
+| Magento\Catalog\Model\Config\Source\ProductPriceOptionsInterface                    | Magento\Catalog\Model\Config\Source\Product\Options\Price                                   |
+| Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterface                   | Magento\Catalog\Model\Indexer\Product\Flat\Table\Builder                                    |
+| Magento\Catalog\Api\ProductRenderListInterface                                      | Magento\Catalog\Model\ProductRenderList                                                     |
+| Magento\Catalog\Api\Data\ProductRenderSearchResultsInterface                        | Magento\Catalog\Model\ProductRenderSearchResults                                            |
+| Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolverInterface             | Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver                              |
+| Magento\Catalog\Model\Product\Media\ConfigInterface                                 | Magento\Catalog\Model\Product\Media\Config                                                  |
+| Magento\Framework\View\Asset\ContextInterface                                       | Magento\Catalog\Model\View\Asset\Image\Context                                              |
+| Magento\Catalog\Api\TierPriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\TierPriceStorage                                        |
+| Magento\Catalog\Api\Data\TierPriceInterface                                         | Magento\Catalog\Model\Product\Price\TierPrice                                               |
+| Magento\Catalog\Api\BasePriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\BasePriceStorage                                        |
+| Magento\Catalog\Api\Data\BasePriceInterface                                         | Magento\Catalog\Model\Product\Price\BasePrice                                               |
+| Magento\Catalog\Api\CostStorageInterface                                            | Magento\Catalog\Model\Product\Price\CostStorage                                             |
+| Magento\Catalog\Api\Data\CostInterface                                              | Magento\Catalog\Model\Product\Price\Cost                                                    |
+| Magento\Catalog\Api\SpecialPriceStorageInterface                                    | Magento\Catalog\Model\Product\Price\SpecialPriceStorage                                     |
+| Magento\Catalog\Api\Data\SpecialPriceInterface                                      | Magento\Catalog\Model\Product\Price\SpecialPrice                                            |
+| Magento\Catalog\Api\Data\PriceUpdateResultInterface                                 | Magento\Catalog\Model\Product\Price\PriceUpdateResult                                       |
+| Magento\Catalog\Api\SpecialPriceInterface                                           | Magento\Catalog\Model\ResourceModel\Product\Price\SpecialPrice                              |
+| Magento\Catalog\Model\ProductIdLocatorInterface                                     | Magento\Catalog\Model\ProductIdLocator                                                      |
+| Magento\Catalog\Api\Data\ProductRender\ButtonInterface                              | Magento\Catalog\Model\ProductRender\Button                                                  |
+| Magento\Catalog\Api\Data\ProductRender\ImageInterface                               | Magento\Catalog\Model\ProductRender\Image                                                   |
+| Magento\Catalog\Api\Data\ProductRender\PriceInfoInterface                           | Magento\Catalog\Model\ProductRender\PriceInfo                                               |
+| Magento\Catalog\Api\Data\ProductRender\FormattedPriceInfoInterface                  | Magento\Catalog\Model\ProductRender\FormattedPriceInfo                                      |
+| Magento\Framework\Indexer\BatchProviderInterface                                    | Magento\Framework\Indexer\BatchProvider                                                     |
+| Magento\Catalog\Model\Indexer\Product\Price\UpdateIndexInterface                    | Magento\Catalog\Model\Indexer\Product\Price\InvalidateIndex                                 |
+| Magento\Catalog\Model\Product\Gallery\ImagesConfigFactoryInterface                  | Magento\Catalog\Model\Product\Gallery\ImagesConfigFactory                                   |
+| Magento\Catalog\Model\Product\Configuration\Item\ItemResolverInterface              | Magento\Catalog\Model\Product\Configuration\Item\ItemResolverComposite                      |
+| Magento\Catalog\Api\Data\MassActionInterface                                        | Magento\Catalog\Model\MassAction                                                            |
+| Magento\Catalog\Model\ProductLink\Data\ListCriteriaInterface                        | Magento\Catalog\Model\ProductLink\Data\ListCriteria                                         |
+| Magento\Catalog\Api\CategoryListDeleteBySkuInterface                                | Magento\Catalog\Model\CategoryLinkRepository                                                |
+| Magento\Theme\CustomerData\MessagesProviderInterface                                | Magento\Catalog\Model\Theme\CustomerData\MessagesProvider                                   |
+| Magento\Catalog\Api\ProductLinkTypeListInterface                                    | Magento\Catalog\Model\Product\LinkTypeProvider                                              |
+| Magento\Catalog\Api\Data\ProductLinkAttributeInterface                              | Magento\Catalog\Model\ProductLink\Attribute                                                 |
+| Magento\Catalog\Api\Data\ProductLinkTypeInterface                                   | Magento\Catalog\Model\ProductLink\Type                                                      |
+| Magento\Catalog\Api\ProductLinkManagementInterface                                  | Magento\Catalog\Model\ProductLink\Management                                                |
+| Magento\Catalog\Api\Data\ProductLinkInterface                                       | Magento\Catalog\Model\ProductLink\Link                                                      |
+| Magento\Catalog\Api\CategoryLinkManagementInterface                                 | Magento\Catalog\Model\CategoryLinkManagement                                                |
+| Magento\Catalog\Api\Data\ProductWebsiteLinkInterface                                | Magento\Catalog\Model\ProductWebsiteLink                                                    |
+| Magento\Catalog\Api\ProductWebsiteLinkRepositoryInterface                           | Magento\Catalog\Model\ProductWebsiteLinkRepository                                          |
+| Magento\Catalog\Api\CategoryLinkRepositoryInterface                                 | Magento\Catalog\Model\CategoryLinkRepository                                                |
+| Magento\Catalog\Api\Data\ProductCustomOptionInterface                               | Magento\Catalog\Model\Product\Option                                                        |
+| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface                          | Magento\Catalog\Model\Product\Option\Repository                                             |
+| Magento\Catalog\Api\Data\ProductCustomOptionTypeInterface                           | Magento\Catalog\Model\Product\Option\Type                                                   |
+| Magento\Catalog\Api\ProductTierPriceManagementInterface                             | Magento\Catalog\Model\Product\TierPriceManagement                                           |
+| Magento\Catalog\Api\ScopedProductTierPriceManagementInterface                       | Magento\Catalog\Model\Product\ScopedTierPriceManagement                                     |
+| Magento\Catalog\Api\Data\ProductTierPriceInterface                                  | Magento\Catalog\Model\Product\TierPrice                                                     |
+| Magento\Catalog\Api\Data\CategoryProductLinkInterface                               | Magento\Catalog\Model\CategoryProductLink                                                   |
+| Magento\Catalog\Api\ProductCustomOptionTypeListInterface                            | Magento\Catalog\Model\ProductOptions\TypeList                                               |
+| Magento\Catalog\Api\Data\ProductCustomOptionValuesInterface                         | Magento\Catalog\Model\Product\Option\Value                                                  |
+| Magento\Catalog\Api\Data\CustomOptionInterface                                      | Magento\Catalog\Model\CustomOptions\CustomOption                                            |
+| Magento\Catalog\Api\Data\ProductOptionInterface                                     | Magento\Catalog\Model\ProductOption                                                         |
+| Magento\Catalog\Api\Data\CategoryLinkInterface                                      | Magento\Catalog\Model\CategoryLink                                                          |
+| Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderInterface     | Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderComposite             |
+| Magento\Catalog\Model\ResourceModel\Product\BaseSelectProcessorInterface            | Magento\Catalog\Model\ResourceModel\Product\CompositeWithWebsiteProcessor                   |
+| Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface                       | Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator                                    |
+| Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\HandlerInterface | Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\Plugin\Handler\Composite |
+| Magento\Catalog\Model\Locator\LocatorInterface                                      | Magento\Catalog\Model\Locator\RegistryLocator                                               |
+| Magento\Catalog\Ui\Component\Listing\Attribute\RepositoryInterface                  | Magento\Catalog\Ui\Component\Listing\Attribute\Repository                                   |
+| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
+| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
+
 ### adminhtml
 |                                         FOR                                         |                                            TYPE                                             |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
@@ -587,214 +1046,6 @@ This module interacts with the following layout handles in frontend
 | Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
 
 ### webapi_soap
-|                                         FOR                                         |                                            TYPE                                             |
-|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| Magento\Catalog\Api\Data\ProductInterface                                           | Magento\Catalog\Model\Product                                                               |
-| Magento\Catalog\Api\ProductRepositoryInterface                                      | Magento\Catalog\Model\ProductRepository                                                     |
-| Magento\Catalog\Api\CategoryAttributeRepositoryInterface                            | Magento\Catalog\Model\Category\AttributeRepository                                          |
-| Magento\Catalog\Api\Data\CategoryAttributeInterface                                 | Magento\Catalog\Model\Category\Attribute                                                    |
-| Magento\Catalog\Api\CategoryAttributeOptionManagementInterface                      | Magento\Catalog\Model\Category\Attribute\OptionManagement                                   |
-| Magento\Catalog\Model\ProductTypes\ConfigInterface                                  | Magento\Catalog\Model\ProductTypes\Config                                                   |
-| Magento\Catalog\Model\ProductOptions\ConfigInterface                                | Magento\Catalog\Model\ProductOptions\Config                                                 |
-| Magento\Catalog\Model\Product\PriceModifierInterface                                | Magento\Catalog\Model\Product\PriceModifier\Composite                                       |
-| Magento\Catalog\Model\Attribute\LockValidatorInterface                              | Magento\Catalog\Model\Attribute\LockValidatorComposite                                      |
-| Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapperInterface       | Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapper                        |
-| Magento\Catalog\Block\Product\ReviewRendererInterface                               | Magento\Catalog\Block\Product\ReviewRenderer\DefaultProvider                                |
-| Magento\Framework\Pricing\PriceInfoInterface                                        | Magento\Framework\Pricing\PriceInfo\Base                                                    |
-| Magento\Framework\Pricing\PriceCurrencyInterface                                    | Magento\Directory\Model\PriceCurrency                                                       |
-| Magento\Framework\Pricing\Adjustment\CalculatorInterface                            | Magento\Framework\Pricing\Adjustment\Calculator                                             |
-| Magento\Catalog\Api\Data\CategoryInterface                                          | Magento\Catalog\Model\Category                                                              |
-| Magento\Catalog\Api\CategoryManagementInterface                                     | Magento\Catalog\Model\CategoryManagement                                                    |
-| Magento\Catalog\Api\CategoryRepositoryInterface                                     | Magento\Catalog\Model\CategoryRepository                                                    |
-| Magento\Catalog\Api\Data\CategoryTreeInterface                                      | Magento\Catalog\Model\Category                                                              |
-| Magento\Catalog\Api\ProductAttributeRepositoryInterface                             | Magento\Catalog\Model\Product\Attribute\Repository                                          |
-| Magento\Catalog\Api\Data\ProductAttributeInterface                                  | Magento\Catalog\Model\ResourceModel\Eav\Attribute                                           |
-| Magento\Catalog\Api\ProductTypeListInterface                                        | Magento\Catalog\Model\ProductTypeList                                                       |
-| Magento\Catalog\Api\Data\ProductTypeInterface                                       | Magento\Catalog\Model\ProductType                                                           |
-| Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface                 | Magento\Catalog\Model\Product\Gallery\GalleryManagement                                     |
-| Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface                 | Magento\Catalog\Model\Product\Gallery\Entry                                                 |
-| Magento\Catalog\Api\ProductMediaAttributeManagementInterface                        | Magento\Catalog\Model\Product\Media\AttributeManagement                                     |
-| Magento\Catalog\Api\ProductAttributeTypesListInterface                              | Magento\Catalog\Model\Product\Attribute\TypesList                                           |
-| Magento\Catalog\Api\Data\ProductAttributeTypeInterface                              | Magento\Catalog\Model\Product\Attribute\Type                                                |
-| Magento\Catalog\Api\ProductAttributeGroupRepositoryInterface                        | Magento\Catalog\Model\ProductAttributeGroupRepository                                       |
-| Magento\Catalog\Api\ProductAttributeOptionManagementInterface                       | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
-| Magento\Catalog\Api\ProductAttributeOptionUpdateInterface                           | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
-| Magento\Catalog\Api\ProductLinkRepositoryInterface                                  | Magento\Catalog\Model\ProductLink\Repository                                                |
-| Magento\Catalog\Api\Data\ProductAttributeSearchResultsInterface                     | Magento\Catalog\Model\ProductAttributeSearchResults                                         |
-| Magento\Catalog\Api\Data\CategoryAttributeSearchResultsInterface                    | Magento\Catalog\Model\CategoryAttributeSearchResults                                        |
-| Magento\Catalog\Api\Data\ProductSearchResultsInterface                              | Magento\Catalog\Model\ProductSearchResults                                                  |
-| Magento\Catalog\Api\ProductAttributeManagementInterface                             | Magento\Catalog\Model\Product\Attribute\Management                                          |
-| Magento\Catalog\Api\AttributeSetManagementInterface                                 | Magento\Catalog\Model\Product\Attribute\SetManagement                                       |
-| Magento\Catalog\Api\AttributeSetRepositoryInterface                                 | Magento\Catalog\Model\Product\Attribute\SetRepository                                       |
-| Magento\Catalog\Api\ProductManagementInterface                                      | Magento\Catalog\Model\ProductManagement                                                     |
-| Magento\Catalog\Api\AttributeSetFinderInterface                                     | Magento\Catalog\Model\Product\Attribute\AttributeSetFinder                                  |
-| Magento\Catalog\Api\CategoryListInterface                                           | Magento\Catalog\Model\CategoryList                                                          |
-| Magento\Catalog\Api\Data\CategorySearchResultsInterface                             | Magento\Catalog\Model\CategorySearchResults                                                 |
-| Magento\Catalog\Model\Config\Source\ProductPriceOptionsInterface                    | Magento\Catalog\Model\Config\Source\Product\Options\Price                                   |
-| Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterface                   | Magento\Catalog\Model\Indexer\Product\Flat\Table\Builder                                    |
-| Magento\Catalog\Api\ProductRenderListInterface                                      | Magento\Catalog\Model\ProductRenderList                                                     |
-| Magento\Catalog\Api\Data\ProductRenderSearchResultsInterface                        | Magento\Catalog\Model\ProductRenderSearchResults                                            |
-| Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolverInterface             | Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver                              |
-| Magento\Catalog\Model\Product\Media\ConfigInterface                                 | Magento\Catalog\Model\Product\Media\Config                                                  |
-| Magento\Framework\View\Asset\ContextInterface                                       | Magento\Catalog\Model\View\Asset\Image\Context                                              |
-| Magento\Catalog\Api\TierPriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\TierPriceStorage                                        |
-| Magento\Catalog\Api\Data\TierPriceInterface                                         | Magento\Catalog\Model\Product\Price\TierPrice                                               |
-| Magento\Catalog\Api\BasePriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\BasePriceStorage                                        |
-| Magento\Catalog\Api\Data\BasePriceInterface                                         | Magento\Catalog\Model\Product\Price\BasePrice                                               |
-| Magento\Catalog\Api\CostStorageInterface                                            | Magento\Catalog\Model\Product\Price\CostStorage                                             |
-| Magento\Catalog\Api\Data\CostInterface                                              | Magento\Catalog\Model\Product\Price\Cost                                                    |
-| Magento\Catalog\Api\SpecialPriceStorageInterface                                    | Magento\Catalog\Model\Product\Price\SpecialPriceStorage                                     |
-| Magento\Catalog\Api\Data\SpecialPriceInterface                                      | Magento\Catalog\Model\Product\Price\SpecialPrice                                            |
-| Magento\Catalog\Api\Data\PriceUpdateResultInterface                                 | Magento\Catalog\Model\Product\Price\PriceUpdateResult                                       |
-| Magento\Catalog\Api\SpecialPriceInterface                                           | Magento\Catalog\Model\ResourceModel\Product\Price\SpecialPrice                              |
-| Magento\Catalog\Model\ProductIdLocatorInterface                                     | Magento\Catalog\Model\ProductIdLocator                                                      |
-| Magento\Catalog\Api\Data\ProductRender\ButtonInterface                              | Magento\Catalog\Model\ProductRender\Button                                                  |
-| Magento\Catalog\Api\Data\ProductRender\ImageInterface                               | Magento\Catalog\Model\ProductRender\Image                                                   |
-| Magento\Catalog\Api\Data\ProductRender\PriceInfoInterface                           | Magento\Catalog\Model\ProductRender\PriceInfo                                               |
-| Magento\Catalog\Api\Data\ProductRender\FormattedPriceInfoInterface                  | Magento\Catalog\Model\ProductRender\FormattedPriceInfo                                      |
-| Magento\Framework\Indexer\BatchProviderInterface                                    | Magento\Framework\Indexer\BatchProvider                                                     |
-| Magento\Catalog\Model\Indexer\Product\Price\UpdateIndexInterface                    | Magento\Catalog\Model\Indexer\Product\Price\InvalidateIndex                                 |
-| Magento\Catalog\Model\Product\Gallery\ImagesConfigFactoryInterface                  | Magento\Catalog\Model\Product\Gallery\ImagesConfigFactory                                   |
-| Magento\Catalog\Model\Product\Configuration\Item\ItemResolverInterface              | Magento\Catalog\Model\Product\Configuration\Item\ItemResolverComposite                      |
-| Magento\Catalog\Api\Data\MassActionInterface                                        | Magento\Catalog\Model\MassAction                                                            |
-| Magento\Catalog\Model\ProductLink\Data\ListCriteriaInterface                        | Magento\Catalog\Model\ProductLink\Data\ListCriteria                                         |
-| Magento\Catalog\Api\CategoryListDeleteBySkuInterface                                | Magento\Catalog\Model\CategoryLinkRepository                                                |
-| Magento\Theme\CustomerData\MessagesProviderInterface                                | Magento\Catalog\Model\Theme\CustomerData\MessagesProvider                                   |
-| Magento\Catalog\Api\ProductLinkTypeListInterface                                    | Magento\Catalog\Model\Product\LinkTypeProvider                                              |
-| Magento\Catalog\Api\Data\ProductLinkAttributeInterface                              | Magento\Catalog\Model\ProductLink\Attribute                                                 |
-| Magento\Catalog\Api\Data\ProductLinkTypeInterface                                   | Magento\Catalog\Model\ProductLink\Type                                                      |
-| Magento\Catalog\Api\ProductLinkManagementInterface                                  | Magento\Catalog\Model\ProductLink\Management                                                |
-| Magento\Catalog\Api\Data\ProductLinkInterface                                       | Magento\Catalog\Model\ProductLink\Link                                                      |
-| Magento\Catalog\Api\CategoryLinkManagementInterface                                 | Magento\Catalog\Model\CategoryLinkManagement                                                |
-| Magento\Catalog\Api\Data\ProductWebsiteLinkInterface                                | Magento\Catalog\Model\ProductWebsiteLink                                                    |
-| Magento\Catalog\Api\ProductWebsiteLinkRepositoryInterface                           | Magento\Catalog\Model\ProductWebsiteLinkRepository                                          |
-| Magento\Catalog\Api\CategoryLinkRepositoryInterface                                 | Magento\Catalog\Model\CategoryLinkRepository                                                |
-| Magento\Catalog\Api\Data\ProductCustomOptionInterface                               | Magento\Catalog\Model\Product\Option                                                        |
-| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface                          | Magento\Catalog\Model\Product\Option\Repository                                             |
-| Magento\Catalog\Api\Data\ProductCustomOptionTypeInterface                           | Magento\Catalog\Model\Product\Option\Type                                                   |
-| Magento\Catalog\Api\ProductTierPriceManagementInterface                             | Magento\Catalog\Model\Product\TierPriceManagement                                           |
-| Magento\Catalog\Api\ScopedProductTierPriceManagementInterface                       | Magento\Catalog\Model\Product\ScopedTierPriceManagement                                     |
-| Magento\Catalog\Api\Data\ProductTierPriceInterface                                  | Magento\Catalog\Model\Product\TierPrice                                                     |
-| Magento\Catalog\Api\Data\CategoryProductLinkInterface                               | Magento\Catalog\Model\CategoryProductLink                                                   |
-| Magento\Catalog\Api\ProductCustomOptionTypeListInterface                            | Magento\Catalog\Model\ProductOptions\TypeList                                               |
-| Magento\Catalog\Api\Data\ProductCustomOptionValuesInterface                         | Magento\Catalog\Model\Product\Option\Value                                                  |
-| Magento\Catalog\Api\Data\CustomOptionInterface                                      | Magento\Catalog\Model\CustomOptions\CustomOption                                            |
-| Magento\Catalog\Api\Data\ProductOptionInterface                                     | Magento\Catalog\Model\ProductOption                                                         |
-| Magento\Catalog\Api\Data\CategoryLinkInterface                                      | Magento\Catalog\Model\CategoryLink                                                          |
-| Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderInterface     | Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderComposite             |
-| Magento\Catalog\Model\ResourceModel\Product\BaseSelectProcessorInterface            | Magento\Catalog\Model\ResourceModel\Product\CompositeWithWebsiteProcessor                   |
-| Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface                       | Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator                                    |
-| Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\HandlerInterface | Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\Plugin\Handler\Composite |
-| Magento\Catalog\Model\Locator\LocatorInterface                                      | Magento\Catalog\Model\Locator\RegistryLocator                                               |
-| Magento\Catalog\Ui\Component\Listing\Attribute\RepositoryInterface                  | Magento\Catalog\Ui\Component\Listing\Attribute\Repository                                   |
-| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
-| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
-
-### global
-|                                         FOR                                         |                                            TYPE                                             |
-|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| Magento\Catalog\Api\Data\ProductInterface                                           | Magento\Catalog\Model\Product                                                               |
-| Magento\Catalog\Api\ProductRepositoryInterface                                      | Magento\Catalog\Model\ProductRepository                                                     |
-| Magento\Catalog\Api\CategoryAttributeRepositoryInterface                            | Magento\Catalog\Model\Category\AttributeRepository                                          |
-| Magento\Catalog\Api\Data\CategoryAttributeInterface                                 | Magento\Catalog\Model\Category\Attribute                                                    |
-| Magento\Catalog\Api\CategoryAttributeOptionManagementInterface                      | Magento\Catalog\Model\Category\Attribute\OptionManagement                                   |
-| Magento\Catalog\Model\ProductTypes\ConfigInterface                                  | Magento\Catalog\Model\ProductTypes\Config                                                   |
-| Magento\Catalog\Model\ProductOptions\ConfigInterface                                | Magento\Catalog\Model\ProductOptions\Config                                                 |
-| Magento\Catalog\Model\Product\PriceModifierInterface                                | Magento\Catalog\Model\Product\PriceModifier\Composite                                       |
-| Magento\Catalog\Model\Attribute\LockValidatorInterface                              | Magento\Catalog\Model\Attribute\LockValidatorComposite                                      |
-| Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapperInterface       | Magento\Catalog\Model\Entity\Product\Attribute\Group\AttributeMapper                        |
-| Magento\Catalog\Block\Product\ReviewRendererInterface                               | Magento\Catalog\Block\Product\ReviewRenderer\DefaultProvider                                |
-| Magento\Framework\Pricing\PriceInfoInterface                                        | Magento\Framework\Pricing\PriceInfo\Base                                                    |
-| Magento\Framework\Pricing\PriceCurrencyInterface                                    | Magento\Directory\Model\PriceCurrency                                                       |
-| Magento\Framework\Pricing\Adjustment\CalculatorInterface                            | Magento\Framework\Pricing\Adjustment\Calculator                                             |
-| Magento\Catalog\Api\Data\CategoryInterface                                          | Magento\Catalog\Model\Category                                                              |
-| Magento\Catalog\Api\CategoryManagementInterface                                     | Magento\Catalog\Model\CategoryManagement                                                    |
-| Magento\Catalog\Api\CategoryRepositoryInterface                                     | Magento\Catalog\Model\CategoryRepository                                                    |
-| Magento\Catalog\Api\Data\CategoryTreeInterface                                      | Magento\Catalog\Model\Category                                                              |
-| Magento\Catalog\Api\ProductAttributeRepositoryInterface                             | Magento\Catalog\Model\Product\Attribute\Repository                                          |
-| Magento\Catalog\Api\Data\ProductAttributeInterface                                  | Magento\Catalog\Model\ResourceModel\Eav\Attribute                                           |
-| Magento\Catalog\Api\ProductTypeListInterface                                        | Magento\Catalog\Model\ProductTypeList                                                       |
-| Magento\Catalog\Api\Data\ProductTypeInterface                                       | Magento\Catalog\Model\ProductType                                                           |
-| Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface                 | Magento\Catalog\Model\Product\Gallery\GalleryManagement                                     |
-| Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface                 | Magento\Catalog\Model\Product\Gallery\Entry                                                 |
-| Magento\Catalog\Api\ProductMediaAttributeManagementInterface                        | Magento\Catalog\Model\Product\Media\AttributeManagement                                     |
-| Magento\Catalog\Api\ProductAttributeTypesListInterface                              | Magento\Catalog\Model\Product\Attribute\TypesList                                           |
-| Magento\Catalog\Api\Data\ProductAttributeTypeInterface                              | Magento\Catalog\Model\Product\Attribute\Type                                                |
-| Magento\Catalog\Api\ProductAttributeGroupRepositoryInterface                        | Magento\Catalog\Model\ProductAttributeGroupRepository                                       |
-| Magento\Catalog\Api\ProductAttributeOptionManagementInterface                       | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
-| Magento\Catalog\Api\ProductAttributeOptionUpdateInterface                           | Magento\Catalog\Model\Product\Attribute\OptionManagement                                    |
-| Magento\Catalog\Api\ProductLinkRepositoryInterface                                  | Magento\Catalog\Model\ProductLink\Repository                                                |
-| Magento\Catalog\Api\Data\ProductAttributeSearchResultsInterface                     | Magento\Catalog\Model\ProductAttributeSearchResults                                         |
-| Magento\Catalog\Api\Data\CategoryAttributeSearchResultsInterface                    | Magento\Catalog\Model\CategoryAttributeSearchResults                                        |
-| Magento\Catalog\Api\Data\ProductSearchResultsInterface                              | Magento\Catalog\Model\ProductSearchResults                                                  |
-| Magento\Catalog\Api\ProductAttributeManagementInterface                             | Magento\Catalog\Model\Product\Attribute\Management                                          |
-| Magento\Catalog\Api\AttributeSetManagementInterface                                 | Magento\Catalog\Model\Product\Attribute\SetManagement                                       |
-| Magento\Catalog\Api\AttributeSetRepositoryInterface                                 | Magento\Catalog\Model\Product\Attribute\SetRepository                                       |
-| Magento\Catalog\Api\ProductManagementInterface                                      | Magento\Catalog\Model\ProductManagement                                                     |
-| Magento\Catalog\Api\AttributeSetFinderInterface                                     | Magento\Catalog\Model\Product\Attribute\AttributeSetFinder                                  |
-| Magento\Catalog\Api\CategoryListInterface                                           | Magento\Catalog\Model\CategoryList                                                          |
-| Magento\Catalog\Api\Data\CategorySearchResultsInterface                             | Magento\Catalog\Model\CategorySearchResults                                                 |
-| Magento\Catalog\Model\Config\Source\ProductPriceOptionsInterface                    | Magento\Catalog\Model\Config\Source\Product\Options\Price                                   |
-| Magento\Catalog\Model\Indexer\Product\Flat\Table\BuilderInterface                   | Magento\Catalog\Model\Indexer\Product\Flat\Table\Builder                                    |
-| Magento\Catalog\Api\ProductRenderListInterface                                      | Magento\Catalog\Model\ProductRenderList                                                     |
-| Magento\Catalog\Api\Data\ProductRenderSearchResultsInterface                        | Magento\Catalog\Model\ProductRenderSearchResults                                            |
-| Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolverInterface             | Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver                              |
-| Magento\Catalog\Model\Product\Media\ConfigInterface                                 | Magento\Catalog\Model\Product\Media\Config                                                  |
-| Magento\Framework\View\Asset\ContextInterface                                       | Magento\Catalog\Model\View\Asset\Image\Context                                              |
-| Magento\Catalog\Api\TierPriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\TierPriceStorage                                        |
-| Magento\Catalog\Api\Data\TierPriceInterface                                         | Magento\Catalog\Model\Product\Price\TierPrice                                               |
-| Magento\Catalog\Api\BasePriceStorageInterface                                       | Magento\Catalog\Model\Product\Price\BasePriceStorage                                        |
-| Magento\Catalog\Api\Data\BasePriceInterface                                         | Magento\Catalog\Model\Product\Price\BasePrice                                               |
-| Magento\Catalog\Api\CostStorageInterface                                            | Magento\Catalog\Model\Product\Price\CostStorage                                             |
-| Magento\Catalog\Api\Data\CostInterface                                              | Magento\Catalog\Model\Product\Price\Cost                                                    |
-| Magento\Catalog\Api\SpecialPriceStorageInterface                                    | Magento\Catalog\Model\Product\Price\SpecialPriceStorage                                     |
-| Magento\Catalog\Api\Data\SpecialPriceInterface                                      | Magento\Catalog\Model\Product\Price\SpecialPrice                                            |
-| Magento\Catalog\Api\Data\PriceUpdateResultInterface                                 | Magento\Catalog\Model\Product\Price\PriceUpdateResult                                       |
-| Magento\Catalog\Api\SpecialPriceInterface                                           | Magento\Catalog\Model\ResourceModel\Product\Price\SpecialPrice                              |
-| Magento\Catalog\Model\ProductIdLocatorInterface                                     | Magento\Catalog\Model\ProductIdLocator                                                      |
-| Magento\Catalog\Api\Data\ProductRender\ButtonInterface                              | Magento\Catalog\Model\ProductRender\Button                                                  |
-| Magento\Catalog\Api\Data\ProductRender\ImageInterface                               | Magento\Catalog\Model\ProductRender\Image                                                   |
-| Magento\Catalog\Api\Data\ProductRender\PriceInfoInterface                           | Magento\Catalog\Model\ProductRender\PriceInfo                                               |
-| Magento\Catalog\Api\Data\ProductRender\FormattedPriceInfoInterface                  | Magento\Catalog\Model\ProductRender\FormattedPriceInfo                                      |
-| Magento\Framework\Indexer\BatchProviderInterface                                    | Magento\Framework\Indexer\BatchProvider                                                     |
-| Magento\Catalog\Model\Indexer\Product\Price\UpdateIndexInterface                    | Magento\Catalog\Model\Indexer\Product\Price\InvalidateIndex                                 |
-| Magento\Catalog\Model\Product\Gallery\ImagesConfigFactoryInterface                  | Magento\Catalog\Model\Product\Gallery\ImagesConfigFactory                                   |
-| Magento\Catalog\Model\Product\Configuration\Item\ItemResolverInterface              | Magento\Catalog\Model\Product\Configuration\Item\ItemResolverComposite                      |
-| Magento\Catalog\Api\Data\MassActionInterface                                        | Magento\Catalog\Model\MassAction                                                            |
-| Magento\Catalog\Model\ProductLink\Data\ListCriteriaInterface                        | Magento\Catalog\Model\ProductLink\Data\ListCriteria                                         |
-| Magento\Catalog\Api\CategoryListDeleteBySkuInterface                                | Magento\Catalog\Model\CategoryLinkRepository                                                |
-| Magento\Theme\CustomerData\MessagesProviderInterface                                | Magento\Catalog\Model\Theme\CustomerData\MessagesProvider                                   |
-| Magento\Catalog\Api\ProductLinkTypeListInterface                                    | Magento\Catalog\Model\Product\LinkTypeProvider                                              |
-| Magento\Catalog\Api\Data\ProductLinkAttributeInterface                              | Magento\Catalog\Model\ProductLink\Attribute                                                 |
-| Magento\Catalog\Api\Data\ProductLinkTypeInterface                                   | Magento\Catalog\Model\ProductLink\Type                                                      |
-| Magento\Catalog\Api\ProductLinkManagementInterface                                  | Magento\Catalog\Model\ProductLink\Management                                                |
-| Magento\Catalog\Api\Data\ProductLinkInterface                                       | Magento\Catalog\Model\ProductLink\Link                                                      |
-| Magento\Catalog\Api\CategoryLinkManagementInterface                                 | Magento\Catalog\Model\CategoryLinkManagement                                                |
-| Magento\Catalog\Api\Data\ProductWebsiteLinkInterface                                | Magento\Catalog\Model\ProductWebsiteLink                                                    |
-| Magento\Catalog\Api\ProductWebsiteLinkRepositoryInterface                           | Magento\Catalog\Model\ProductWebsiteLinkRepository                                          |
-| Magento\Catalog\Api\CategoryLinkRepositoryInterface                                 | Magento\Catalog\Model\CategoryLinkRepository                                                |
-| Magento\Catalog\Api\Data\ProductCustomOptionInterface                               | Magento\Catalog\Model\Product\Option                                                        |
-| Magento\Catalog\Api\ProductCustomOptionRepositoryInterface                          | Magento\Catalog\Model\Product\Option\Repository                                             |
-| Magento\Catalog\Api\Data\ProductCustomOptionTypeInterface                           | Magento\Catalog\Model\Product\Option\Type                                                   |
-| Magento\Catalog\Api\ProductTierPriceManagementInterface                             | Magento\Catalog\Model\Product\TierPriceManagement                                           |
-| Magento\Catalog\Api\ScopedProductTierPriceManagementInterface                       | Magento\Catalog\Model\Product\ScopedTierPriceManagement                                     |
-| Magento\Catalog\Api\Data\ProductTierPriceInterface                                  | Magento\Catalog\Model\Product\TierPrice                                                     |
-| Magento\Catalog\Api\Data\CategoryProductLinkInterface                               | Magento\Catalog\Model\CategoryProductLink                                                   |
-| Magento\Catalog\Api\ProductCustomOptionTypeListInterface                            | Magento\Catalog\Model\ProductOptions\TypeList                                               |
-| Magento\Catalog\Api\Data\ProductCustomOptionValuesInterface                         | Magento\Catalog\Model\Product\Option\Value                                                  |
-| Magento\Catalog\Api\Data\CustomOptionInterface                                      | Magento\Catalog\Model\CustomOptions\CustomOption                                            |
-| Magento\Catalog\Api\Data\ProductOptionInterface                                     | Magento\Catalog\Model\ProductOption                                                         |
-| Magento\Catalog\Api\Data\CategoryLinkInterface                                      | Magento\Catalog\Model\CategoryLink                                                          |
-| Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderInterface     | Magento\Catalog\Model\ResourceModel\Product\LinkedProductSelectBuilderComposite             |
-| Magento\Catalog\Model\ResourceModel\Product\BaseSelectProcessorInterface            | Magento\Catalog\Model\ResourceModel\Product\CompositeWithWebsiteProcessor                   |
-| Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface                       | Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator                                    |
-| Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\HandlerInterface | Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper\Plugin\Handler\Composite |
-| Magento\Catalog\Model\Locator\LocatorInterface                                      | Magento\Catalog\Model\Locator\RegistryLocator                                               |
-| Magento\Catalog\Ui\Component\Listing\Attribute\RepositoryInterface                  | Magento\Catalog\Ui\Component\Listing\Attribute\Repository                                   |
-| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
-| Magento\Catalog\Model\Product\Option\Type\Date                                      | Magento\Catalog\Model\Webapi\Product\Option\Type\Date                                       |
-
-### frontend
 |                                         FOR                                         |                                            TYPE                                             |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | Magento\Catalog\Api\Data\ProductInterface                                           | Magento\Catalog\Model\Product                                                               |

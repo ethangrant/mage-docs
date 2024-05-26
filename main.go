@@ -49,6 +49,7 @@ func main() {
 		new(Mixins),
 		new(Schema),
 		new(Observer),
+		new(Plugins),
 		new(Preference),
 	)
 
