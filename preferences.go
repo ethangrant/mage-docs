@@ -12,11 +12,14 @@ type Preference struct {
 	} `xml:"preference"`
 }
 
-// @todo - check if works with webapi_*
 func (p *Preference) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Preferences")
+	var titleRendered bool = false
 	xml := NewXml("di")
 	areamap := xml.UnmarshalToMap(p, cnf)
+
+	if len(areamap) == 0 {
+		return
+	}
 
 	for area, preference := range areamap {
 		preference := preference.(*Preference)
@@ -28,6 +31,11 @@ func (p *Preference) Generate(cnf Config, markdown *md.Markdown) {
 
 		if len(preference.Preference) == 0 {
 			continue
+		}
+
+		if !titleRendered {
+			titleRendered = true
+			markdown.H2("Preferences")
 		}
 
 		markdown.H3(area)
