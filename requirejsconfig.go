@@ -45,8 +45,6 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 	dataAsString = reSingleLineComment.ReplaceAllString(dataAsString, "")
 	dataAsString = strings.TrimSpace(dataAsString)
 
-	fmt.Println(dataAsString)
-
 	return []byte(dataAsString)
 }
 
