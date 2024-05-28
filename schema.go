@@ -53,9 +53,14 @@ type Schema struct {
 }
 
 func (s *Schema) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Schema")
 	xml := NewXml("db_schema")
 	areamap := xml.UnmarshalToMap(s, cnf)
+
+	if len(areamap) == 0 {
+		return
+	}
+
+	markdown.H2("Schema")
 
 	for _, schema := range areamap {
 		tables := schema.(*Schema).Table
