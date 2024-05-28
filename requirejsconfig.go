@@ -28,7 +28,6 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 
 	data, err := os.ReadFile(fmt.Sprintf("%sview/%s/requirejs-config.js", modulePath, area))
 	if err != nil {
-		fmt.Println(err.Error())
 		return []byte{}
 	}
 

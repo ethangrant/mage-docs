@@ -6,6 +6,7 @@ import (
 )
 
 type Mixins struct {
+	Title string
 }
 
 func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
@@ -15,8 +16,6 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 	areaMap["base"] = []byte{}
 	areaMap["frontend"] = []byte{}
 	areaMap["adminhtml"] = []byte{}
-
-	markdown.H2("Mixins")
 
 	for area, _ := range areaMap {
 		data := requireJsConfig.getRequireJsConfigContent(area, cnf.ModulePath)
@@ -32,6 +31,11 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 		for _, mixin := range mixins {
 			row := []string{mixin.Target, mixin.Mixin, strconv.FormatBool(mixin.Status)}
 			rows = append(rows, row)
+		}
+
+		if m.Title == "" {
+			m.Title = "Mixins"
+			markdown.H2("Mixins")
 		}
 
 		markdown.H3(area)
