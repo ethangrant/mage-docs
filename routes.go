@@ -34,8 +34,7 @@ type Routes struct {
 // @todo - handle other router types
 // @todo - rework to output a table
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
-	xml := NewXml("routes")
-	areaMap := xml.UnmarshalToMap(r, cnf)
+	areaMap := NewXml("routes").UnmarshalToMap(Routes{}, cnf)
 
 	for area, route := range areaMap {
 		var uris []string

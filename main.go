@@ -45,12 +45,12 @@ func main() {
 		new(Module),
 		new(Routes),
 		new(Webapi),
-		new(Layout),
+		new(Layouts),
 		new(Mixins),
-		new(Schema),
-		new(Observer),
+		new(Schemas),
+		new(Observers),
 		new(Plugins),
-		new(Preference),
+		new(Preferences),
 	)
 
 	for _, generator := range generators {

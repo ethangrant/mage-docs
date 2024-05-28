@@ -18,11 +18,14 @@ type Plugins struct {
 }
 
 func (p *Plugins) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Plugins (Interceptors)")
-	xml := NewXml("di")
-	areamap := xml.UnmarshalToMap(p, cnf)
+	var titleRendered bool = false
+	areaMap := NewXml("di").UnmarshalToMap(Plugins{}, cnf)
 
-	for area, plugin := range areamap {
+	if len(areaMap) == 0 {
+		return
+	}
+
+	for area, plugin := range areaMap {
 		var rows [][]string
 		plugin := plugin.(*Plugins)
 		types := plugin.Type
@@ -39,6 +42,11 @@ func (p *Plugins) Generate(cnf Config, markdown *md.Markdown) {
 				row := []string{target, pluginNode.Type, pluginNode.Name}
 				rows = append(rows, row)
 			}
+		}
+
+		if !titleRendered {
+			titleRendered = true
+			markdown.H2("Plugins (Interceptors)")
 		}
 
 		markdown.H3(area)

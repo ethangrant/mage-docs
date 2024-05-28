@@ -4,6 +4,10 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
+type Schemas struct {
+
+}
+
 type Schema struct {
 	Table []struct {
 		Text     string `xml:",chardata"`
@@ -52,17 +56,16 @@ type Schema struct {
 	} `xml:"table"`
 }
 
-func (s *Schema) Generate(cnf Config, markdown *md.Markdown) {
-	xml := NewXml("db_schema")
-	areamap := xml.UnmarshalToMap(s, cnf)
+func (s *Schemas) Generate(cnf Config, markdown *md.Markdown) {
+	areaMap := NewXml("db_schema").UnmarshalToMap(Schema{}, cnf)
 
-	if len(areamap) == 0 {
+	if len(areaMap) == 0 {
 		return
 	}
 
 	markdown.H2("Schema")
 
-	for _, schema := range areamap {
+	for _, schema := range areaMap {
 		tables := schema.(*Schema).Table
 
 		var rows [][]string

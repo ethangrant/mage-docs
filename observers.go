@@ -4,9 +4,7 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
-// @TODO -refactor similart XML types observer,preference etc
-
-type Observer struct {
+type Observers struct {
 	Event []struct {
 		Text     string `xml:",chardata"`
 		Name     string `xml:"name,attr"`
@@ -18,13 +16,16 @@ type Observer struct {
 	} `xml:"event"`
 }
 
-func (o *Observer) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Observers")
-	xml := NewXml("events")
-	areamap := xml.UnmarshalToMap(o, cnf)
+func (o *Observers) Generate(cnf Config, markdown *md.Markdown) {
+	var titleRendered bool = false
+	areaMap := NewXml("events").UnmarshalToMap(Observers{}, cnf)
 
-	for area, observer := range areamap {
-		observer := observer.(*Observer)
+	if len(areaMap) == 0 {
+		return
+	}
+
+	for area, observer := range areaMap {
+		observer := observer.(*Observers)
 		var rows [][]string
 		for _, event := range observer.Event {
 			name := event.Name
@@ -36,6 +37,11 @@ func (o *Observer) Generate(cnf Config, markdown *md.Markdown) {
 
 		if len(observer.Event) == 0 {
 			continue
+		}
+
+		if !titleRendered {
+			titleRendered = true
+			markdown.H2("Observers")
 		}
 
 		markdown.H3(area)

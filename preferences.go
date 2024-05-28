@@ -4,6 +4,9 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
+type Preferences struct {
+}
+
 type Preference struct {
 	Preference []struct {
 		Text string `xml:",chardata"`
@@ -12,16 +15,15 @@ type Preference struct {
 	} `xml:"preference"`
 }
 
-func (p *Preference) Generate(cnf Config, markdown *md.Markdown) {
+func (p *Preferences) Generate(cnf Config, markdown *md.Markdown) {
 	var titleRendered bool = false
-	xml := NewXml("di")
-	areamap := xml.UnmarshalToMap(p, cnf)
+	areaMap := NewXml("di").UnmarshalToMap(Preference{}, cnf)
 
-	if len(areamap) == 0 {
+	if len(areaMap) == 0 {
 		return
 	}
 
-	for area, preference := range areamap {
+	for area, preference := range areaMap {
 		preference := preference.(*Preference)
 		var rows [][]string
 		for _, p := range preference.Preference {

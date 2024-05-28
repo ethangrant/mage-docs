@@ -25,16 +25,15 @@ type Webapi struct {
 }
 
 func (w *Webapi) Generate(cnf Config, markdown *md.Markdown) {
-	xml := NewXml("webapi")
-	areamap := xml.UnmarshalToMap(w, cnf)
+	areaMap := NewXml("webapi").UnmarshalToMap(Webapi{}, cnf)
 
-	if len(areamap) == 0 {
+	if len(areaMap) == 0 {
 		return
 	}
 
 	markdown.H2("API Routes")
 
-	for area, webapi := range areamap {
+	for area, webapi := range areaMap {
 		webapi := webapi.(*Webapi)
 		var rows [][]string
 

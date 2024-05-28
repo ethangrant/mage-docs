@@ -8,10 +8,10 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
-type Layout struct {
+type Layouts struct {
 }
 
-func (l *Layout) Generate(cnf Config, markdown *md.Markdown) {
+func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 	markdown.H2("Layouts")
 	markdown.PlainText("This module interacts with the following layout handles in frontend")
 

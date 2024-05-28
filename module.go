@@ -20,9 +20,8 @@ type Module struct {
 
 func (m *Module) Generate(cnf Config, markdown *md.Markdown) {
 	var deps []string
-	xml := NewXml("module")
-	areamap := xml.UnmarshalToMap(m, cnf)
-	module := areamap["global"].(*Module).Module
+	areaMap := NewXml("module").UnmarshalToMap(Module{}, cnf)
+	module := areaMap["global"].(*Module).Module
 
 	markdown.H1f("%s", md.Bold(module.Name))
 	markdown.PlainTextf("{{ %s }}", md.Italic("Provide a brief description of the module here"))
