@@ -34,7 +34,6 @@ type Routes struct {
 // @todo - handle other router types
 // @todo - rework to output a table
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Routes")
 	xml := NewXml("routes")
 	areaMap := xml.UnmarshalToMap(r, cnf)
 
@@ -91,8 +90,11 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 		})
 
 		markdown.H3(area)
+		for key, uri := range uris {
+			if key == 0 {
+				markdown.H2("Routes")
+			}
 
-		for _, uri := range uris {
 			markdown.PlainTextf("%s", md.Code(uri))
 		}
 	}

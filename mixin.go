@@ -1,8 +1,8 @@
 package main
 
 import (
-	md "github.com/nao1215/markdown"
 	"strconv"
+	md "github.com/nao1215/markdown"
 )
 
 type Mixins struct {

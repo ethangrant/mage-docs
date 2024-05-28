@@ -34,6 +34,7 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 
 	re := regexp.MustCompile(`([a-zA-Z]+):`)
 	reDocBlock := regexp.MustCompile(`\/\*\*(.|[\r\n])*?\*\/`)
+	reSingleLineComment := regexp.MustCompile(`(\/\/.*)`)
 
 	dataAsString := string(data)
 	dataAsString = strings.ReplaceAll(dataAsString, "'", "\"")
@@ -41,7 +42,10 @@ func (r *RequireJsConfig) getRequireJsConfigContent(area string, modulePath stri
 	dataAsString = strings.ReplaceAll(dataAsString, "var config = ", "")
 	dataAsString = re.ReplaceAllString(dataAsString, "\"$1\":")
 	dataAsString = reDocBlock.ReplaceAllString(dataAsString, "")
+	dataAsString = reSingleLineComment.ReplaceAllString(dataAsString, "")
 	dataAsString = strings.TrimSpace(dataAsString)
+
+	fmt.Println(dataAsString)
 
 	return []byte(dataAsString)
 }

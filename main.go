@@ -32,7 +32,7 @@ func main() {
 		ModulePath: path,
 	}
 
-	file, err := os.Create(cnf.ModulePath + "README.md")
+	file, err := os.Create(cnf.ModulePath + "MAGE_DOCS_README.md")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
