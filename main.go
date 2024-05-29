@@ -48,6 +48,7 @@ func main() {
 		new(Layouts),
 		new(Mixins),
 		new(Schemas),
+		new(Dispatches),
 		new(Observers),
 		new(Plugins),
 		new(Preferences),
