@@ -30,7 +30,7 @@ func (o *Observers) Generate(cnf Config, markdown *md.Markdown) {
 		for _, event := range observer.Event {
 			name := event.Name
 			for _, obs := range event.Observer {
-				row := []string{name, obs.Name, obs.Instance}
+				row := []string{md.Code(name), md.Code(obs.Name), md.Code(obs.Instance)}
 				rows = append(rows, row)
 			}
 		}

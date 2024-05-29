@@ -39,7 +39,7 @@ func (p *Plugins) Generate(cnf Config, markdown *md.Markdown) {
 			}
 
 			for _, pluginNode := range pluginNodes {
-				row := []string{target, pluginNode.Type, pluginNode.Name}
+				row := []string{md.Code(target), md.Code(pluginNode.Type), md.Code(pluginNode.Name)}
 				rows = append(rows, row)
 			}
 		}

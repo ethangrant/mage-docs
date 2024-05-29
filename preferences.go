@@ -27,7 +27,7 @@ func (p *Preferences) Generate(cnf Config, markdown *md.Markdown) {
 		preference := preference.(*Preference)
 		var rows [][]string
 		for _, p := range preference.Preference {
-			row := []string{p.For, p.Type}
+			row := []string{md.Code(p.For), md.Code(p.Type)}
 			rows = append(rows, row)
 		}
 

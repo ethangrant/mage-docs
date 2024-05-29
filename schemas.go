@@ -70,7 +70,7 @@ func (s *Schemas) Generate(cnf Config, markdown *md.Markdown) {
 
 		var rows [][]string
 		for _, table := range tables {
-			row := []string{table.Name, table.Comment}
+			row := []string{md.Code(table.Name), table.Comment}
 			rows = append(rows, row)
 		}
 

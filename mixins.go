@@ -29,7 +29,7 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 
 		var rows [][]string
 		for _, mixin := range mixins {
-			row := []string{mixin.Target, mixin.Mixin, strconv.FormatBool(mixin.Status)}
+			row := []string{md.Code(mixin.Target), md.Code(mixin.Mixin), strconv.FormatBool(mixin.Status)}
 			rows = append(rows, row)
 		}
 

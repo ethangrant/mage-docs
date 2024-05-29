@@ -38,7 +38,7 @@ func (w *Webapi) Generate(cnf Config, markdown *md.Markdown) {
 		var rows [][]string
 
 		for _, route := range webapi.Route {
-			row := []string{route.URL, route.Method}
+			row := []string{md.Code(route.URL), route.Method}
 			rows = append(rows, row)
 		}
 
