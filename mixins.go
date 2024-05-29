@@ -33,17 +33,7 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 			rows = append(rows, row)
 		}
 
-		if m.Title == "" {
-			m.Title = "Mixins"
-			markdown.H2("Mixins")
-		}
-
-		markdown.H3(area)
-		markdown.Table(
-			md.TableSet{
-				Header: []string{"Target", "Mixin", "Status"},
-				Rows:   rows,
-			},
-		)
+		m.Title = RenderTitle(m.Title, "Mixins", markdown)
+		RenderTable([]string{"Target", "Mixin", "Status"}, rows, area, markdown)
 	}
 }
