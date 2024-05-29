@@ -35,6 +35,7 @@ type Routes struct {
 // @todo - rework to output a table
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 	areaMap := NewXml("routes").UnmarshalToMap(Routes{}, cnf)
+	var titleRendered bool = false
 
 	for area, route := range areaMap {
 		var uris []string
@@ -88,12 +89,13 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 			return nil
 		})
 
-		markdown.H3(area)
-		for key, uri := range uris {
-			if key == 0 {
-				markdown.H2("Routes")
-			}
+		if !titleRendered && len(uris) > 0 {
+			markdown.H2("Routes")
+			titleRendered = true
+		}
 
+		markdown.H3(area)
+		for _, uri := range uris {
 			markdown.PlainTextf("%s", md.Code(uri))
 		}
 	}
