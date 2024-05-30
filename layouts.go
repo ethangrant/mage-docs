@@ -14,7 +14,6 @@ type Layouts struct {
 
 func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 	var layouts []string
-	markdown.PlainText("This module interacts with the following layout handles in frontend")
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"
 	filepath.WalkDir(layoutPath, func(path string, d fs.DirEntry, err error) error {
