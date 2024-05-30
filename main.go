@@ -13,7 +13,7 @@ func main() {
 		interactiveForm InteractiveForm
 		path            string
 		outputFile      string
-		generators      []string
+		generators []string
 	)
 
 	generators = []string{}
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	path = AddTrailingSlash(path)
-
+	
 	cnf := Config{
 		ModulePath: path,
 	}
@@ -45,13 +45,13 @@ func main() {
 	defer file.Close()
 
 	err = spinner.New().
-		Title("Generating documentation").
-		Action(func() {
-			err = NewRenderer().Render(file, generators, cnf)
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-		}).
-		Run()
+    Title("Generating documentation").
+    Action(func ()  {
+		err = NewRenderer().Render(file, generators, cnf)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+	}).
+    Run()
 }
