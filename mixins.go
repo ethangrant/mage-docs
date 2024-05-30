@@ -17,7 +17,7 @@ func (m *Mixins) Generate(cnf Config, markdown *md.Markdown) {
 	areaMap["frontend"] = []byte{}
 	areaMap["adminhtml"] = []byte{}
 
-	for area, _ := range areaMap {
+	for area := range areaMap {
 		data := requireJsConfig.getRequireJsConfigContent(area, cnf.ModulePath)
 		areaMap[area] = data
 

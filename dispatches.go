@@ -17,7 +17,7 @@ type Dispatches struct {
 func (d *Dispatches) Generate(cnf Config, markdown *md.Markdown) {
 	events := make(map[string]string)
 
-	filepath.WalkDir(cnf.ModulePath, func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(cnf.ModulePath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return err
 		}
@@ -50,6 +50,10 @@ func (d *Dispatches) Generate(cnf Config, markdown *md.Markdown) {
 
 		return nil
 	})
+
+	if err != nil {
+		return
+	}
 
 	if len(events) == 0 {
 		return

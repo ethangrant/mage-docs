@@ -16,7 +16,7 @@ func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 	var layouts []string
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"
-	filepath.WalkDir(layoutPath, func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(layoutPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil
 		}
@@ -26,6 +26,9 @@ func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 
 		return nil
 	})
+	if err != nil {
+		return
+	}
 
 	if len(layouts) == 0 {
 		return
