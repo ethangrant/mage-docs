@@ -5,6 +5,7 @@ import (
 )
 
 type Observers struct {
+	Title string
 	Event []struct {
 		Text     string `xml:",chardata"`
 		Name     string `xml:"name,attr"`
@@ -17,7 +18,6 @@ type Observers struct {
 }
 
 func (o *Observers) Generate(cnf Config, markdown *md.Markdown) {
-	var titleRendered bool = false
 	areaMap := NewXml("events").UnmarshalToMap(Observers{}, cnf)
 
 	if len(areaMap) == 0 {
@@ -39,17 +39,7 @@ func (o *Observers) Generate(cnf Config, markdown *md.Markdown) {
 			continue
 		}
 
-		if !titleRendered {
-			titleRendered = true
-			markdown.H2("Observers")
-		}
-
-		markdown.H3(area)
-		markdown.Table(
-			md.TableSet{
-				Header: []string{"Event", "Observer name", "Instance"},
-				Rows:   rows,
-			},
-		)
+		o.Title = RenderTitle(o.Title, "Observers", markdown)
+		RenderTable([]string{"Event", "Observer name", "Instance"}, rows, area, markdown)
 	}
 }

@@ -13,6 +13,7 @@ type Controllers struct {
 }
 
 type Routes struct {
+	Title  string
 	Router struct {
 		Text  string `xml:",chardata"`
 		ID    string `xml:"id,attr"`
@@ -28,14 +29,8 @@ type Routes struct {
 	} `xml:"router"`
 }
 
-// @todo - ignore abstract classes
-// @todo - feasible to get param information?
-// @todo - check if we can see what kind of result is returned?
-// @todo - handle other router types
-// @todo - rework to output a table
 func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 	areaMap := NewXml("routes").UnmarshalToMap(Routes{}, cnf)
-	var titleRendered bool = false
 
 	for area, route := range areaMap {
 		var uris []string
@@ -89,10 +84,11 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 			return nil
 		})
 
-		if !titleRendered && len(uris) > 0 {
-			markdown.H2("Routes")
-			titleRendered = true
+		if len(uris) == 0 {
+			return
 		}
+
+		r.Title = RenderTitle(r.Title, "Routes", markdown)
 
 		markdown.H3(area)
 		for _, uri := range uris {

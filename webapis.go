@@ -5,6 +5,7 @@ import (
 )
 
 type Webapi struct {
+	Title string
 	Route []struct {
 		Text    string `xml:",chardata"`
 		URL     string `xml:"url,attr"`
@@ -31,7 +32,7 @@ func (w *Webapi) Generate(cnf Config, markdown *md.Markdown) {
 		return
 	}
 
-	markdown.H2("API Routes")
+	w.Title = RenderTitle(w.Title, "API Routes", markdown)
 
 	for area, webapi := range areaMap {
 		webapi := webapi.(*Webapi)
@@ -42,12 +43,6 @@ func (w *Webapi) Generate(cnf Config, markdown *md.Markdown) {
 			rows = append(rows, row)
 		}
 
-		markdown.H3(area)
-		markdown.Table(
-			md.TableSet{
-				Header: []string{"Url", "Method"},
-				Rows:   rows,
-			},
-		)
+		RenderTable([]string{"Url", "Method"}, rows, area, markdown)
 	}
 }

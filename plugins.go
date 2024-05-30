@@ -5,7 +5,8 @@ import (
 )
 
 type Plugins struct {
-	Type []struct {
+	Title string
+	Type  []struct {
 		Text   string `xml:",chardata"`
 		Name   string `xml:"name,attr"`
 		Shared string `xml:"shared,attr"`
@@ -18,7 +19,6 @@ type Plugins struct {
 }
 
 func (p *Plugins) Generate(cnf Config, markdown *md.Markdown) {
-	var titleRendered bool = false
 	areaMap := NewXml("di").UnmarshalToMap(Plugins{}, cnf)
 
 	if len(areaMap) == 0 {
@@ -44,17 +44,7 @@ func (p *Plugins) Generate(cnf Config, markdown *md.Markdown) {
 			}
 		}
 
-		if !titleRendered {
-			titleRendered = true
-			markdown.H2("Plugins (Interceptors)")
-		}
-
-		markdown.H3(area)
-		markdown.Table(
-			md.TableSet{
-				Header: []string{"Target", "Type", "Name"},
-				Rows:   rows,
-			},
-		)
+		p.Title = RenderTitle(p.Title, "Plugins (Interceptors)", markdown)
+		RenderTable([]string{"Target", "Type", "Name"}, rows, area, markdown)
 	}
 }

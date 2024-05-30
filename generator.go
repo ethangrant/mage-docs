@@ -24,7 +24,7 @@ func RenderTable(header []string, rows [][]string, area string, markdown *md.Mar
 
 	markdown.Table(
 		md.TableSet{
-			Header: []string{"Target", "Mixin", "Status"},
+			Header: header,
 			Rows:   rows,
 		},
 	)

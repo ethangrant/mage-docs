@@ -5,7 +5,7 @@ import (
 )
 
 type Schemas struct {
-
+	Title string
 }
 
 type Schema struct {
@@ -63,8 +63,6 @@ func (s *Schemas) Generate(cnf Config, markdown *md.Markdown) {
 		return
 	}
 
-	markdown.H2("Schema")
-
 	for _, schema := range areaMap {
 		tables := schema.(*Schema).Table
 
@@ -77,6 +75,8 @@ func (s *Schemas) Generate(cnf Config, markdown *md.Markdown) {
 		if len(tables) == 0 {
 			continue
 		}
+
+		s.Title = RenderTitle(s.Title, "Schema", markdown)
 
 		markdown.CustomTable(
 			md.TableSet{

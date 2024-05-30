@@ -5,6 +5,7 @@ import (
 )
 
 type Preferences struct {
+	Title string
 }
 
 type Preference struct {
@@ -16,7 +17,6 @@ type Preference struct {
 }
 
 func (p *Preferences) Generate(cnf Config, markdown *md.Markdown) {
-	var titleRendered bool = false
 	areaMap := NewXml("di").UnmarshalToMap(Preference{}, cnf)
 
 	if len(areaMap) == 0 {
@@ -35,17 +35,7 @@ func (p *Preferences) Generate(cnf Config, markdown *md.Markdown) {
 			continue
 		}
 
-		if !titleRendered {
-			titleRendered = true
-			markdown.H2("Preferences")
-		}
-
-		markdown.H3(area)
-		markdown.Table(
-			md.TableSet{
-				Header: []string{"For", "Type"},
-				Rows:   rows,
-			},
-		)
+		p.Title = RenderTitle(p.Title, "Preferences", markdown)
+		RenderTable([]string{"For", "Type"}, rows, area, markdown)
 	}
 }

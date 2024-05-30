@@ -9,10 +9,11 @@ import (
 )
 
 type Layouts struct {
+	Title string
 }
 
 func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
-	markdown.H2("Layouts")
+	var layouts []string
 	markdown.PlainText("This module interacts with the following layout handles in frontend")
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"
@@ -22,8 +23,18 @@ func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 		}
 
 		path = filepath.Base(path)
-		markdown.PlainTextf("%s", md.Code(strings.TrimSuffix(path, ".xml")))
+		layouts = append(layouts, md.Code(strings.TrimSuffix(path, ".xml")))
 
 		return nil
 	})
+
+	if len(layouts) == 0 {
+		return
+	}
+
+	l.Title = RenderTitle(l.Title, "Layouts", markdown)
+
+	for _, layout := range layouts {
+		markdown.PlainTextf("%s", layout)
+	}
 }

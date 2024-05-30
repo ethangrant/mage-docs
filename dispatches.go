@@ -10,7 +10,8 @@ import (
 	md "github.com/nao1215/markdown"
 )
 
-type Dispatches struct{
+type Dispatches struct {
+	Title string
 }
 
 func (d *Dispatches) Generate(cnf Config, markdown *md.Markdown) {
@@ -50,8 +51,8 @@ func (d *Dispatches) Generate(cnf Config, markdown *md.Markdown) {
 		return nil
 	})
 
-	if len(events) > 0 {
-		markdown.H2("Dispatched Events")
+	if len(events) == 0 {
+		return
 	}
 
 	rows := [][]string{}
@@ -60,10 +61,6 @@ func (d *Dispatches) Generate(cnf Config, markdown *md.Markdown) {
 		rows = append(rows, row)
 	}
 
-	markdown.Table(
-		md.TableSet{
-			Header: []string{"Path", "Dispatched event"},
-			Rows:   rows,
-		},
-	)
+	d.Title = RenderTitle(d.Title, "Dispatched Events", markdown)
+	RenderTable([]string{"Path", "Dispatched event"}, rows, "", markdown)
 }
