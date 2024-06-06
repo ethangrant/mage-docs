@@ -16,6 +16,10 @@ func (l *Layouts) Generate(cnf Config, markdown *md.Markdown) {
 	var layouts []string
 
 	layoutPath := cnf.ModulePath + "view/frontend/layout"
+	if !DirExists(layoutPath) {
+		return
+	}
+
 	err := filepath.WalkDir(layoutPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil

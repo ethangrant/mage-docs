@@ -45,6 +45,10 @@ func (r *Routes) Generate(cnf Config, markdown *md.Markdown) {
 
 		controllerDir := cnf.ModulePath + "Controller/"
 
+		if !DirExists(controllerDir) {
+			continue
+		}
+
 		err := filepath.WalkDir(controllerDir, func(path string, d os.DirEntry, err error) error {
 			if d.IsDir() {
 				return nil
